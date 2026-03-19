@@ -1,0 +1,143 @@
++--------+
+| Índice |
++--------+
+Contexto, problemática y motivación
+Antecedentes
+Objetivos y competencias
+Planificación
+Principios MLOps
+Caso principal: operativización de Chronos Engine
+Estandarización del despliegue con TYM.MLOpsTemplate
+Transferabilidad del estándar con Asset Allocation
+Gobernanza y Trazabilidad en Teradata
+Resultados obtenidos
+Marco Legislativo
+Memória económica y viabilidad del proyecto
+Conclusiones
+Líneas futuras
+
++-------------------------------------+
+| Contexto, problemática y motivación |
++-------------------------------------+
+Crecimiento del uso de IA/ML en finanzas: Las entidades financieras demandan cada vez más modelos de ML en producción. Sin embargo, llevar un modelo de laboratorio a la operación con control supone retos propios (gestión de datos, monitorización, mantenimiento continuo) que exceden el desarrollo tradicional de software
+Brecha desarrollo-producción: Estudios indican que ~80 % de los proyectos de ML no llegan a producción, debido a problemas de reproducibilidad, gobernanza y escalabilidad
+Necesidad operativa: Por ello, el objetivo es automatizar el ciclo de vida de los modelos para reducir la dependencia de tareas manuales y reforzar la trazabilidad. El TFM responde a esta motivación aplicando prácticas MLOps estandarizadas para pasar de prototipos aislados a modelos productivos fiables.
+ODSs:
+ODS 9: Industria, Innovación e Infraestructura
+ODS 8: Trabajo decente y crecimiento económico
+ODS 16: Paz, justicia e instituciones sólidas
+
++--------------+
+| Antecedentes |
++--------------+
+Plataforma MLOps # Presentacion/presentation/assets/images/plataforma_mlops.PNG
+Varios modelos productivizados (sin buenas practicas)
+
++--------------------------+
+| Objetivos y competencias | # Partiendo de los antecedentes se definen los objetivos
++--------------------------+
+Objetivo general: Diseñar, implementar y validar una solución MLOps sobre Azure ML que permita modularizar, parametrizar y operativizar modelos financieros existentes, mejorando la trazabilidad, reproducibilidad y mantenibilidad del ciclo de vida.
+Los 6 objetivos específicos 
+Competencias seleccionadas # Hacer una tabla
+
++---------------+
+| Planificación |
++---------------+
+Imagen de la planificación # Presentacion/presentation/assets/images/planificacion.PNG
+
++------------------+
+| Principios MLOps |
++------------------+
+Stack de herramientas: Azure Repos, Azure DevOps, AzureML, Teradata, MLFlow
+Flujo MLOps: Diagrama de flujo (Azure Repos -> Azure DevOps -> AzureML -> MLFlow -> Teradata -> Report)
+Buenas prácticas: Separar logica de negocio y modelo, modularizacion y parametrizacion del codigo, etc. 
+
++---------------------------------------------------+
+| Caso principal: operativización de Chronos Engine |
++---------------------------------------------------+
+Objetivo del Modelo: Que es Chronos Engine / Para que productivizarlo (LK necesita las inferencias): 12 sectores, 4 modelos (y subtipos RANSAC, DT, RF, ...), 
+Pipeline Training # Por sector # Presentacion/presentation/assets/images/train_chronosengine.PNG
+Pipeline Inferencia + Backtest + Report # Por sector Presentacion/presentation/assets/images/infer_chronosengine.PNG
+Enseñar report por sector # Presentacion/presentation/assets/images/report_chronos_1.PNG,  Presentacion/presentation/assets/images/report_chronos_2.PNG y Presentacion/presentation/assets/images/report_chronos_3.PNG
+Pipeline SumUp # Global (con los 12 sectores) Presentacion/presentation/assets/images/pipeline_sumup.PNG
+Enseñar report sumup # Presentacion/presentation/assets/images/report_chronos_4.PNG
+
++------------------------------------------------------+
+| Estandarización del despliegue con TYM.MLOpsTemplate |
++------------------------------------------------------+
+¿Por que unas plantillas? -> Mayoria del codigo reusable, ..
+Sí resuelve
+- Estructura base de repositorio y contratos
+- Despliegue homogéneo por entornos y CI/CD
+- Registro y gobernanza del lifecycle con MLflow + Teradata
+No resuelve
+- La lógica de negocio del modelo
+- Las features, algoritmos y reglas concretas
+- Los KPIs funcionales del caso de uso.
+Estructura de las plantillas # Presentacion/presentation/assets/images/template_explicacion.PNG
+Ventajas que aporta las plantillas
+
++----------------------------------------------------+
+| Transferabilidad del estándar con Asset Allocation |
++----------------------------------------------------+
+Objetivo del Modelo: Que es Asset Allocation / Para que productivizarlo (inferencias + validacion de plantillas)
+Pipeline Training # Presentacion/presentation/assets/images/train_assetallocation.PNG
+Pipeline Inferencia # Presentacion/presentation/assets/images/infer_assetallocation.PNG
+Enseñar report imagen # Presentacion/presentation/assets/images/report_html_assetallocation.PNG
+
++---------------------------------------+
+| Gobernanza y Trazabilidad en Teradata | # Lista de elementos en el lado izquierdo de la slide y en el lado derecho que vayan actualizandose imagenes/explicaciones según se avanza por cada elemento de la lista
++---------------------------------------+
+Wrappers en mlflow y unwrapping para inferencia # No hay imagen, hacer un mini diagrama para explicar que el codigo se encapsula en un wrapper para poder registrar en mlflow y luego se hace unwrap para acceder a el. 
+Carga de datos desde teradata # Presentacion/presentation/assets/images/select_query.PNG
+Registro de modelos e inferencias # Presentacion/presentation/assets/images/componente_register_model.PNG y Presentacion/presentation/assets/images/componente_register_infer.PNG
+Solution ids, model_ids y versionado # Explicar que cada proyecto tiene un solution_id asociado y cada modelo almacenado en mlflow de azure model registry se identifica como model_id+version en la tabla de teradata
+Selfpromotion para champions # Presentacion/presentation/assets/images/componente_selfpromotion.PNG
+Manual Model Fallback # Presentacion/presentation/assets/images/componente_fallback.PNG
+
++----------------------+
+| Resultados obtenidos |
++----------------------+
+Resultados tangibles: 2 modelos productivizados, Plantillas
+Trazabilidad y auditoría de ciclo de vida con registro en MLflow y persistencia en Teradata
+Reducción de tiempos de arranque por reutilización de plantilla TYM.MLOpsTemplate y CI/CD homogéneo
+Reducción de errores de integración gracias a contratos de datos y artefactos en YAML
+Reutilización demostrada en segundo caso de negocio sin rediseñar la infraestructura base
+Documentación operativa (README.md, USER-GUIDE.md, AZURE-DOCS.md) como soporte de transferencia y mantenimiento
+
++-------------------+
+| Marco Legislativo | # Crear una tabla con una breve explicacion por cada
++-------------------+
+RGPD — Reglamento (UE) 2016/679
+LOPDGDD — Ley Orgánica 3/2018
+AI Act / AIA — Reglamento (UE) 2024/1689
+SR 11-7 (MRM) de la Reserva Federal
+NIST AI RMF 1.0
+
++---------------------------------------------+
+| Memória económica y viabilidad del proyecto |
++---------------------------------------------+
+Las 2 fotos de la memoria económica # Presentacion/presentation/assets/images/memoria_economica_workspace.png y Presentacion/presentation/assets/images/memoria_economica_resource_group.png
+Tabla resumen de costes
+ROI aproximado
+
++--------------+
+| Conclusiones |
++--------------+
+Cumplimiento de los objetivos (general + 6 OE)
+Competencias adquiridas (6 competencias)
+Tiempo estimado de productivización:
+- Chornos Engine: 4 meses
+- Asset Allocation: 3 semanas
+* Entre chronos a asset ha habido una reduccion de 75% de tiempo de productivización y las plantillas pueden llegar a tener bastante impacto en la reducción de tiempos (sin evaluar las particularidades de cada proyecto).
+
++----------------+
+| Líneas futuras |
++----------------+
+Unit Tests
+Mejorar AutoPromoción para las necesidadesd e TyM
+Productivizar nuevos modelos mediante las plantillas
+Gobernanza formal de las plantillas
+Monitorización y Cuadros de Mando
+Automatizar la entrega segura y trazable de los reportes operativos a los equipos de negocio mediante un canal corporativo validado por cumplimiento
+Mejorar los datos de teradata

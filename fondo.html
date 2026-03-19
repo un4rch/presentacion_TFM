@@ -1,0 +1,198 @@
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Market Chart Background</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111111;
+        }
+
+        /* Subtle Grid Pattern */
+        .bg-grid {
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="overflow-hidden relative min-h-screen flex items-center justify-center antialiased">
+
+    <!-- Ambient Lighting & Grid -->
+    <div class="absolute inset-0 z-0 bg-grid opacity-100"></div>
+    <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.08),_transparent_50%)]"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-emerald-500/10 rounded-full blur-[130px] pointer-events-none z-0"></div>
+
+    <!-- Live Chart Timeline -->
+    <div class="absolute inset-x-0 top-[15%] bottom-[15%] z-10 flex items-center overflow-hidden">
+        
+        <!-- Smooth Fade-out Mask on the left edge -->
+        <div class="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#111111] via-[#111111]/80 to-transparent z-20 pointer-events-none"></div>
+
+        <!-- Dynamic Candle Container -->
+        <div id="chart-container" class="flex items-center gap-1.5 md:gap-3 h-full w-full justify-end pr-8 md:pr-24 relative z-10">
+            <!-- Candles will be continuously injected here by JS -->
+        </div>
+        
+        <!-- Real-time Horizontal Price Level -->
+        <div id="price-line" class="absolute right-0 w-[100vw] h-px border-t border-dashed border-emerald-500/50 z-0 transition-all duration-[600ms] ease-out pointer-events-none">
+            <div id="price-dot" class="absolute -right-1 -top-1 w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.9)] animate-pulse transition-colors duration-[600ms]"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const chart = document.getElementById('chart-container');
+        const priceLine = document.getElementById('price-line');
+        const priceDot = document.getElementById('price-dot');
+        
+        let currentY = 50; // Current price expressed as a percentage from the top (0% is highest price, 100% is lowest)
+        let liveCandle = null;
+        let ticks = 0;
+        const maxTicks = 6; // Exactly 6 movements per candle before closing
+        
+        let openY = 50, highY = 50, lowY = 50;
+
+        // Creates the basic DOM structure for a candlestick
+        function createCandleDOM() {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'relative h-full w-1.5 md:w-2.5 flex justify-center shrink-0';
+
+            const wick = document.createElement('div');
+            const body = document.createElement('div');
+
+            wrapper.appendChild(wick);
+            wrapper.appendChild(body);
+            return { wrapper, wick, body };
+        }
+
+        // Applies visual styling and physical dimensions based on price values
+        function applyStyles(elements, isBullish, open, current, high, low, isLive) {
+            const colorClassBody = isBullish ? 'bg-emerald-400' : 'bg-rose-400';
+            const colorClassWick = isBullish ? 'bg-emerald-500/50' : 'bg-rose-500/50';
+            const shadowClass = isBullish ? 'shadow-[0_0_12px_rgba(52,211,153,0.25)]' : 'shadow-[0_0_12px_rgba(251,113,133,0.25)]';
+            
+            // Live candles have a smooth transition on the body, closed ones are static
+            const opacity = isLive ? 'opacity-100' : 'opacity-50';
+            const transition = isLive ? 'transition-all duration-[600ms] ease-out' : '';
+
+            // min-h-[1px] ensures Doji visibility without breaking percentage-based alignment
+            elements.body.className = `absolute w-full rounded-[1px] z-10 ${colorClassBody} ${opacity} ${shadowClass} min-h-[1px] ${transition}`;
+            
+            // Wicks do NOT use transition, snapping instantly so they never visually displace from the high/low
+            elements.wick.className = `absolute w-px ${colorClassWick}`;
+
+            const bodyTop = Math.min(open, current);
+            const bodyHeight = Math.abs(open - current); // Exact calculation
+
+            elements.body.style.top = `${bodyTop}%`;
+            elements.body.style.height = `${bodyHeight}%`;
+
+            elements.wick.style.top = `${high}%`;
+            elements.wick.style.height = `${low - high}%`;
+        }
+
+        // Finishes the old candle and sets up a new one
+        function startNewCandle() {
+            if (liveCandle) {
+                // Freeze the current live candle's final state
+                const isBullish = currentY <= openY;
+                applyStyles(liveCandle, isBullish, openY, currentY, highY, lowY, false);
+            }
+
+            // Reset trackers for the newly opening candle
+            openY = currentY;
+            highY = currentY;
+            lowY = currentY;
+            ticks = 0;
+
+            liveCandle = createCandleDOM();
+            chart.appendChild(liveCandle.wrapper);
+
+            // Clean up oldest candles so the browser doesn't slow down
+            if (chart.children.length > 80) {
+                chart.removeChild(chart.firstChild);
+            }
+
+            updateLiveVisuals();
+        }
+
+        // Triggers the CSS updates visually for the live candle
+        function updateLiveVisuals() {
+            const isBullish = currentY <= openY;
+            applyStyles(liveCandle, isBullish, openY, currentY, highY, lowY, true);
+
+            // Update floating horizontal price line indicator
+            priceLine.style.top = `${currentY}%`;
+            if (isBullish) {
+                priceLine.classList.replace('border-rose-500/50', 'border-emerald-500/50');
+                priceDot.classList.replace('bg-rose-500', 'bg-emerald-500');
+                priceDot.classList.replace('shadow-[0_0_12px_rgba(244,63,94,0.9)]', 'shadow-[0_0_12px_rgba(16,185,129,0.9)]');
+            } else {
+                priceLine.classList.replace('border-emerald-500/50', 'border-rose-500/50');
+                priceDot.classList.replace('bg-emerald-500', 'bg-rose-500');
+                priceDot.classList.replace('shadow-[0_0_12px_rgba(16,185,129,0.9)]', 'shadow-[0_0_12px_rgba(244,63,94,0.9)]');
+            }
+        }
+
+        // Executes a single price movement 
+        function tick() {
+            if (ticks >= maxTicks) {
+                startNewCandle();
+                // Espera 1 segundo exacto antes de empezar a moverse la nueva vela
+                setTimeout(tick, 1000); 
+                return;
+            }
+
+            // Simulate market volatility with a random walk delta
+            let delta = (Math.random() - 0.5) * 8; 
+            
+            // Soft limits to keep price generally centered on screen
+            if (currentY < 20) delta += 3;
+            if (currentY > 80) delta -= 3;
+
+            currentY += delta;
+
+            // Expand highs/lows limits based on new current price
+            if (currentY < highY) highY = currentY; // Remember: smaller Y is higher vertically
+            if (currentY > lowY) lowY = currentY;
+
+            updateLiveVisuals();
+            ticks++;
+
+            // Ritmo normal de movimiento
+            setTimeout(tick, 800);
+        }
+
+        // ON LOAD: Instantly generate a batch of historical mock candles to fill up the screen
+        let pastY = 50;
+        for(let i=0; i<60; i++) {
+            let pOpen = pastY;
+            let delta = (Math.random() - 0.5) * 8;
+            if (pastY < 25) delta += 2.5;
+            if (pastY > 75) delta -= 2.5;
+            let pClose = pastY + delta;
+            
+            let pHigh = Math.min(pOpen, pClose) - Math.random() * 5;
+            let pLow = Math.max(pOpen, pClose) + Math.random() * 5;
+
+            let cDOM = createCandleDOM();
+            applyStyles(cDOM, pClose <= pOpen, pOpen, pClose, pHigh, pLow, false);
+            chart.appendChild(cDOM.wrapper);
+            pastY = pClose;
+        }
+        
+        currentY = pastY;
+
+        // Initiate Live Stream
+        startNewCandle();
+        // Espera de 1 segundo antes de animar la primera vela
+        setTimeout(tick, 1000);
+
+    </script>
+
+</body></html>

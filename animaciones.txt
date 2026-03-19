@@ -1,0 +1,8 @@
+neon que haga que el texto aparezca de izquierda a derecha (por ejemplo en la lista de indice)
+particulas por el fondo
+transiciones de aparicion de elementos dentro de la misma slide (mejorar efectos visuales)
+colores de las cards dentro de la slide no solo verdes, es muy aburrido
+
+stack de herramientas, que se vean mas grandes y aprovechas mas pantalla
+color de texto mas blanco y mas opacidad
+hacer las ventanas que ocupen casi toda la pantalla y texto mas grande, aprovechar mejor espacio
