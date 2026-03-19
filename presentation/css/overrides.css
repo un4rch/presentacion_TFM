@@ -61,7 +61,7 @@
 .reveal .slides .slide-pad .competencies-table td,
 .reveal .slides .slide-pad .clean-table td,
 .reveal .slides .slide-pad .clean-table th {
-  color: var(--premium-muted) !important;
+  color: #ffffff !important;
   font-family: "JetBrains Mono", monospace;
 }
 
@@ -1080,7 +1080,7 @@
 }
 
 .conclusions-final-slide .story-sequence {
-  min-height: 600px;
+  min-height: 640px;
   margin-top: 12px;
 }
 
@@ -1097,55 +1097,55 @@
 
 .conclusions-final-slide .conclusions-card,
 .conclusions-final-slide .conclusions-time-card {
-  max-width: 1460px;
+  max-width: 1520px;
   margin: 0 auto;
 }
 
 .conclusions-final-slide .conclusions-card {
-  padding: 14px 14px 10px;
+  padding: 18px 18px 14px;
 }
 
 .conclusions-final-slide .conclusions-card h3,
 .conclusions-final-slide .conclusions-time-card h3 {
-  margin: 0 0 8px;
-  font-size: 0.45em;
+  margin: 0 0 12px;
+  font-size: 0.54em;
 }
 
 .conclusions-final-slide .conclusions-table {
-  border-spacing: 0 4px;
-  font-size: 0.32em;
+  border-spacing: 0 5px;
+  font-size: 0.4em;
 }
 
 .conclusions-final-slide .conclusions-table th,
 .conclusions-final-slide .conclusions-table td {
-  padding: 6px 8px;
-  line-height: 1.3;
+  padding: 8px 10px;
+  line-height: 1.34;
 }
 
 .conclusions-final-slide .conclusions-table th:first-child,
 .conclusions-final-slide .conclusions-table td:first-child {
-  width: 98px;
+  width: 132px;
   white-space: nowrap;
 }
 
 .conclusions-final-slide .conclusions-time-card {
-  padding: 14px 16px;
+  padding: 18px 20px;
 }
 
 .conclusions-final-slide .conclusions-time-list {
-  margin: 8px 0 6px 22px;
+  margin: 12px 0 10px 26px;
   padding: 0;
 }
 
 .conclusions-final-slide .conclusions-time-list li {
-  font-size: 0.4em;
-  line-height: 1.34;
+  font-size: 0.48em;
+  line-height: 1.4;
 }
 
 .conclusions-final-slide .conclusions-time-card .statement {
-  margin: 6px 0 0;
-  font-size: 0.36em;
-  line-height: 1.35;
+  margin: 10px 0 0;
+  font-size: 0.42em;
+  line-height: 1.4;
 }
 
 .mlops-sequence-slide .mlops-stage {
@@ -1342,11 +1342,11 @@
 }
 
 .clean-table th {
-  color: #e5e7eb !important;
+  color: #ffffff !important;
 }
 
 .clean-table td {
-  color: var(--premium-muted) !important;
+  color: #ffffff !important;
 }
 
 .reveal .fragment {
@@ -1504,15 +1504,15 @@
   }
 
   .conclusions-final-slide .conclusions-card h3 {
-    font-size: 0.42em;
+    font-size: 0.48em;
   }
 
   .conclusions-final-slide .conclusions-table {
-    font-size: 0.31em;
+    font-size: 0.35em;
   }
 
   .conclusions-final-slide .story-sequence {
-    min-height: 660px;
+    min-height: 700px;
   }
 
   .index-rail {
@@ -1633,7 +1633,7 @@
   }
 
   .conclusions-final-slide .conclusions-table {
-    font-size: 0.29em;
+    font-size: 0.31em;
   }
 
   .conclusions-final-slide .conclusions-table th,
@@ -1650,10 +1650,43 @@
   }
 
   .conclusions-final-slide .conclusions-time-card .statement {
-    font-size: 0.34em;
+    font-size: 0.36em;
   }
 
   .context-ods-table th {
     width: 84px;
   }
+}
+
+/* Fit terminal containers to active content */
+.reveal .slides .story-sequence,
+.reveal .slides .mlops-sequence,
+.reveal .slides .chronos-sequence-shell {
+  min-height: 0 !important;
+  height: auto;
+}
+
+/* Readability boost: white real slide content, keep visual accents */
+.reveal .slides .slide-pad h1,
+.reveal .slides .slide-pad h2,
+.reveal .slides .slide-pad h3,
+.reveal .slides .slide-pad h4,
+.reveal .slides .slide-pad h5,
+.reveal .slides .slide-pad h6,
+.reveal .slides .slide-pad p,
+.reveal .slides .slide-pad li,
+.reveal .slides .slide-pad th,
+.reveal .slides .slide-pad td,
+.reveal .slides .slide-pad label,
+.reveal .slides .slide-pad small,
+.reveal .slides .slide-pad strong,
+.reveal .slides .slide-pad em,
+.reveal .slides .slide-pad a,
+.reveal .slides .slide-pad code,
+.reveal .slides .slide-pad li::marker {
+  color: #ffffff !important;
+}
+
+.reveal .slides .slide-pad .slide-head .slide-counter {
+  color: var(--premium-green) !important;
 }
