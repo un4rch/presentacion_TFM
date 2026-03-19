@@ -74,19 +74,19 @@
             <span class="rail-icon"><i class="fa-solid fa-chart-column"></i></span>
             <span class="rail-title">Marco</span>
           </button>
-          <button type="button" class="rail-item" data-slide="14" data-nav="13" aria-label="Memoria y viabilidad">
+          <button type="button" class="rail-item" data-slide="13" data-nav="13" aria-label="Memoria y viabilidad">
             <span class="rail-icon"><i class="fa-solid fa-circle-check"></i></span>
             <span class="rail-title">Memoria</span>
           </button>
-          <button type="button" class="rail-item" data-slide="16" data-nav="14" aria-label="Conclusiones">
+          <button type="button" class="rail-item" data-slide="14" data-nav="14" aria-label="Conclusiones">
             <span class="rail-icon"><i class="fa-solid fa-medal"></i></span>
             <span class="rail-title">Conclusiones</span>
           </button>
-          <button type="button" class="rail-item" data-slide="19" data-nav="15" aria-label="Lineas futuras">
+          <button type="button" class="rail-item" data-slide="15" data-nav="15" aria-label="Lineas futuras">
             <span class="rail-icon"><i class="fa-solid fa-road"></i></span>
             <span class="rail-title">Futuro</span>
           </button>
-          <button type="button" class="rail-item" data-slide="20" data-nav="16" aria-label="Cierre">
+          <button type="button" class="rail-item" data-slide="16" data-nav="16" aria-label="Cierre">
             <span class="rail-icon"><i class="fa-solid fa-flag-checkered"></i></span>
             <span class="rail-title">Cierre</span>
           </button>
@@ -261,7 +261,7 @@
                   <div class="ante-point"><span class="context-icon"><i class="fa-solid fa-building-columns"></i></span><p>Plataforma MLOps corporativa sobre Azure.</p></div>
                   <div class="ante-point"><span class="context-icon"><i class="fa-solid fa-code-branch"></i></span><p>Separacion por entornos DEV, PRE y PRO.</p></div>
                   <div class="ante-point"><span class="context-icon"><i class="fa-solid fa-database"></i></span><p>Datastore y Azure BBDD.</p></div>
-                  <div class="ante-point"><span class="context-icon"><i class="fa-solid fa-cubes"></i></span><p>LKM y otros modelos ya productivizados, pero con buenas practicas no homogeneas.</p></div>
+                  <div class="ante-point"><span class="context-icon"><i class="fa-solid fa-cubes"></i></span><p>Varios modelos previamente productivizados.</p></div>
                 </div>
               </div>
               <article class="image-box antecedentes-image-frame"><img src="./assets/images/plataforma_mlops.png" alt="Plataforma MLOps corporativa" /></article>
@@ -296,8 +296,8 @@
                   </article>
                   <article class="objective-tile focus-target" data-objective-focus="4">
                     <div class="objective-head"><span class="context-icon"><i class="fa-solid fa-gauge-high"></i></span><span>OE4</span></div>
-                    <h3>Medir impacto operativo</h3>
-                    <p>Cuantificar mejora de tiempos y esfuerzo tecnico en escenarios comparables.</p>
+                    <h3>Documentación técnica y operativa</h3>
+                    <p>Definir una documentación técnica y una guia paso a paso para utilizar las plantillas</p>
                   </article>
                   <article class="objective-tile focus-target" data-objective-focus="5">
                     <div class="objective-head"><span class="context-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span><span>OE5</span></div>
@@ -421,10 +421,10 @@
               <article class="mlops-stage mlops-stage-practices" data-mlops-focus="2">
                 <div class="mlops-stage-head"><span class="context-icon"><i class="fa-solid fa-shield-halved"></i></span><h3>Buenas practicas</h3></div>
                 <div class="mlops-practices-grid">
-                  <article class="mlops-practice"><h4>Separacion de responsabilidades</h4><p>Separar logica de negocio, logica de modelo y logica de plataforma.</p></article>
-                  <article class="mlops-practice"><h4>Modularizacion y parametrizacion</h4><p>Componentes reutilizables y parametros declarativos para acelerar cambios.</p></article>
-                  <article class="mlops-practice"><h4>Contratos explicitos</h4><p>Entradas y salidas tipadas para reducir errores y mejorar mantenibilidad.</p></article>
-                  <article class="mlops-practice"><h4>Automatizacion de ciclo</h4><p>Pruebas, despliegues y registro de evidencias de manera consistente.</p></article>
+                  <article class="mlops-practice"><h4>Separación de lógica de negocio y plataforma</h4><p>Separar el código del modelo de los componentes que orquestan su ejecución para reducir acoplamiento, facilitar pruebas y reutilizar infraestructura.</p></article>
+                  <article class="mlops-practice"><h4>Modularización y parametrización del código</h4><p>Dividir el pipeline en componentes con responsabilidad única y mover la configuración fuera del código para mejorar mantenibilidad y trazabilidad.</p></article>
+                  <article class="mlops-practice"><h4>Contratos explícitos y trazabilidad entre componentes</h4><p>Definir entradas, salidas y metadatos de cada componente, asociando versiones a cada ejecución para garantizar reproducibilidad y auditoría.</p></article>
+                  <article class="mlops-practice"><h4>Logging y evidencias de ejecución</h4><p>Registrar métricas, artefactos y configuraciones de cada ejecución para poder explicar desviaciones y reconstruir resultados.</p></article>
                 </div>
               </article>
 
@@ -444,8 +444,7 @@
                   <article class="chronos-definition-card">
                     <p class="chronos-eyebrow">DEFINICION OPERATIVA</p>
                     <h4>Chronos Engine</h4>
-                    <p class="chronos-definition-copy">Motor cuantitativo para renta fija privada que detecta sobre/infra valor por sector y horizonte temporal, y lo transforma en inferencias trazables para decision y reporting.</p>
-                    <p class="chronos-definition-note">Laboral Kutxa necesita inferencias periodicas (diarias, mensuales y trimestrales) con evidencia operativa por sector.</p>
+                    <p class="chronos-definition-copy">Chronos Engine es un modelo que analiza índices de Renta Fija Privada (RFP) y evalúa si están caros o baratos comparando los niveles observados con las predicciones del modelo</p>
                     <div class="chronos-micro-kpi"><span><strong>12</strong> sectores</span><span><strong>4</strong> familias</span></div>
                   </article>
 
@@ -496,12 +495,11 @@
                 <div class="chronos-stage-headline"><span class="context-icon"><i class="fa-solid fa-diagram-project"></i></span><h3>Pipeline Training por sector</h3></div>
                 <div class="chronos-stage-layout">
                   <article class="chronos-stage-context">
-                    <p class="chronos-step-tag">Paso 2/6</p>
                     <p>Entrenamiento desacoplado por sector con registro trazable de metricas, hiperparametros y artefactos.</p>
                     <ul class="chronos-stage-list">
                       <li>Carga de datos y preprocesado</li>
                       <li>Entrenamiento por ventana/sector</li>
-                      <li>Registro en MLflow y promotion</li>
+                      <li>Registro en MLflow, Teradata y Selfpromotion</li>
                     </ul>
                     <div class="chronos-inline-metrics"><span><strong data-counter="44">44</strong> pipelines YAML</span><span><strong data-counter="25">25</strong> componentes</span></div>
                   </article>
@@ -513,7 +511,6 @@
                 <div class="chronos-stage-headline"><span class="context-icon"><i class="fa-solid fa-gears"></i></span><h3>Pipeline Inferencia + Backtest + Report por sector</h3></div>
                 <div class="chronos-stage-layout">
                   <article class="chronos-stage-context">
-                    <p class="chronos-step-tag">Paso 3/6</p>
                     <p>La inferencia diaria y la reconstruccion historica de backtest forman parte del lifecycle gobernado.</p>
                     <ul class="chronos-stage-list">
                       <li>Carga de datos y preprocesado</li>
@@ -529,7 +526,6 @@
                 <div class="chronos-stage-headline"><span class="context-icon"><i class="fa-solid fa-file-lines"></i></span><h3>Evidencia de reporte por sector</h3></div>
                 <div class="chronos-stage-layout">
                   <article class="chronos-stage-context">
-                    <p class="chronos-step-tag">Paso 4/6</p>
                     <p>Salida operativa por sector para consumo recurrente en Tesoreria y Mercados.</p>
                     <ul class="chronos-stage-list">
                       <li>Vista interpretable por negocio</li>
@@ -549,7 +545,6 @@
                 <div class="chronos-stage-headline"><span class="context-icon"><i class="fa-solid fa-table-cells-large"></i></span><h3>Pipeline SumUp global (12 sectores)</h3></div>
                 <div class="chronos-stage-layout">
                   <article class="chronos-stage-context">
-                    <p class="chronos-step-tag">Paso 5/6</p>
                     <p>Consolidacion de inferencias desde Teradata para construir una vista global util y comparable.</p>
                     <ul class="chronos-stage-list">
                       <li>Carga de inferencias multi-sector</li>
@@ -565,7 +560,6 @@
                 <div class="chronos-stage-headline"><span class="context-icon"><i class="fa-solid fa-chart-column"></i></span><h3>Reporte SumUp consolidado</h3></div>
                 <div class="chronos-stage-layout">
                   <article class="chronos-stage-context">
-                    <p class="chronos-step-tag">Paso 6/6</p>
                     <p>Entrega final consolidada para decision y reporting, incluyendo lectura de top movers en una unica salida operativa.</p>
                     <ul class="chronos-stage-list">
                       <li>Vision unificada de los 12 sectores</li>
@@ -600,41 +594,33 @@
                 </div>
               </article>
 
-              <article class="story-stage" data-story-focus="1">
-                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-check"></i></span><h3>Si resuelve</h3></div>
-                <div class="grid-3 compact story-bullet-grid">
-                  <article class="card"><p>Estructura base de repositorio y contratos.</p></article>
-                  <article class="card"><p>Despliegue homogeneo por entornos y CI/CD.</p></article>
-                  <article class="card"><p>Registro y gobernanza del lifecycle con MLflow + Teradata.</p></article>
-                </div>
-              </article>
-
-              <article class="story-stage" data-story-focus="2">
-                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-xmark"></i></span><h3>No resuelve</h3></div>
-                <div class="grid-3 compact story-bullet-grid">
-                  <article class="card warn"><p>La logica de negocio del modelo.</p></article>
-                  <article class="card warn"><p>Las features, algoritmos y reglas concretas.</p></article>
-                  <article class="card warn"><p>Los KPIs funcionales del caso de uso.</p></article>
-                </div>
-              </article>
-
-              <article class="story-stage" data-story-focus="3">
-                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-folder-tree"></i></span><h3>Estructura de las plantillas</h3></div>
-                <div class="grid-2">
-                  <div class="image-box"><img src="./assets/images/template_explicacion.PNG" alt="Estructura del repositorio template" /></div>
-                  <article class="card">
-                    <h3>Lectura por capas</h3>
-                    <ul>
-                      <li><strong>pipelines/</strong> orquestacion declarativa del ciclo.</li>
-                      <li><strong>components/</strong> bloques modulares reutilizables.</li>
-                      <li><strong>src/</strong> logica especifica del caso.</li>
-                      <li><strong>contracts/</strong> interfaces de entrada y salida.</li>
-                    </ul>
+              <article class="story-stage template-scope-stage" data-story-focus="1">
+                <div class="grid-2 story-intro-grid template-scope-grid">
+                  <article class="card template-scope-card">
+                    <h3 class="template-scope-title"><span class="context-icon icon-tone-green"><i class="fa-solid fa-check"></i></span><span>Si resuelve</span></h3>
+                    <div class="template-scope-lines">
+                      <p>Estructura base de repositorio y contratos.</p>
+                      <p>Despliegue homogeneo por entornos y CI/CD.</p>
+                      <p>Registro y gobernanza del lifecycle con MLflow + Teradata.</p>
+                    </div>
+                  </article>
+                  <article class="card warn template-scope-card">
+                    <h3 class="template-scope-title"><span class="context-icon icon-tone-red"><i class="fa-solid fa-xmark"></i></span><span>No resuelve</span></h3>
+                    <div class="template-scope-lines">
+                      <p>La logica de negocio del modelo.</p>
+                      <p>Las features, algoritmos y reglas concretas.</p>
+                      <p>Los KPIs funcionales del caso de uso.</p>
+                    </div>
                   </article>
                 </div>
               </article>
 
-              <article class="story-stage" data-story-focus="4">
+              <article class="story-stage" data-story-focus="2">
+                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-folder-tree"></i></span><h3>Estructura de las plantillas</h3></div>
+                <div class="image-wide template-structure-image"><img src="./assets/images/template_explicacion.PNG" alt="Estructura del repositorio template" /></div>
+              </article>
+
+              <article class="story-stage" data-story-focus="3">
                 <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-star"></i></span><h3>Ventajas que aporta la plantilla</h3></div>
                 <div class="kpi-row executive">
                   <div class="kpi-card highlight"><span>Tiempo de arranque</span><strong>Menor</strong></div>
@@ -651,14 +637,13 @@
               <span class="fragment story-step-trigger" data-fragment-index="0" data-story-step="1" aria-hidden="true"></span>
               <span class="fragment story-step-trigger" data-fragment-index="1" data-story-step="2" aria-hidden="true"></span>
               <span class="fragment story-step-trigger" data-fragment-index="2" data-story-step="3" aria-hidden="true"></span>
-              <span class="fragment story-step-trigger" data-fragment-index="3" data-story-step="4" aria-hidden="true"></span>
             </div>
           </div>
         </section>
 
         <section>
           <div class="slide-pad story-sequence-slide asset-sequence-slide">
-            <h2>9. Transferabilidad del estandar con Asset Allocation</h2>
+            <h2>9. Asset Allocation</h2>
             <div class="story-sequence">
               <article class="story-stage" data-story-focus="0">
                 <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-object-group"></i></span><h3>Objetivo del modelo</h3></div>
@@ -736,9 +721,9 @@
                   <div class="govern-detail-stage" data-govern-panel="3">
                     <p>La jerarquia <strong>solution_id -&gt; model_id -&gt; version</strong> permite reconstruir de forma determinista que modelo genero cada inferencia.</p>
                     <div class="govern-meta-badges">
-                      <span>solution_id: asset_allocation</span>
-                      <span>model_id: xgboost_profile_07</span>
-                      <span>version: v2.3.1</span>
+                      <span>solution_id: 083849746294739274556</span>
+                      <span>model_id: sklearn/decision_tree/asset_allocation</span>
+                      <span>version: v1.0.0</span>
                     </div>
                   </div>
 
@@ -771,46 +756,29 @@
           <div class="slide-pad story-sequence-slide results-sequence-slide">
             <h2>11. Resultados obtenidos</h2>
             <div class="story-sequence results-sequence">
-              <article class="story-stage results-stage" data-story-focus="0">
-                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-chart-line"></i></span><h3>Vista ejecutiva de resultados</h3></div>
-                <div class="kpi-row executive">
-                  <div class="kpi-card highlight"><span>Modelos productivizados</span><strong>2 casos reales</strong></div>
-                  <div class="kpi-card highlight"><span>Estandar reusable</span><strong>Template operativo</strong></div>
-                  <div class="kpi-card highlight"><span>Trazabilidad</span><strong>MLflow + Teradata</strong></div>
-                </div>
-                <p class="statement">La evidencia confirma capacidad operativa, reduccion de tiempos de arranque y despliegue homogeneo por reutilizacion de TYM.MLOpsTemplate.</p>
-              </article>
-
-              <article class="story-stage results-stage" data-story-focus="1">
-                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-clipboard-check"></i></span><h3>Cumplimiento de objetivos y resultados tangibles</h3></div>
-                <div class="grid-2">
-                  <article class="card">
-                    <h3>Cumplimiento de objetivos</h3>
-                    <ul>
-                      <li>OE1 y OE2: Chronos operativizado y estandar reusable consolidado.</li>
-                      <li>OE3 y OE4: transferibilidad validada en Asset Allocation y mejora operativa medida.</li>
-                      <li>OE5 y OE6: adopcion AML SDK v2 y gobernanza integrada en Teradata.</li>
-                    </ul>
+              <article class="story-stage results-stage is-active" data-story-focus="0">
+                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-chart-line"></i></span><h3>Resultados tangibles y operativos</h3></div>
+                <div class="grid-2 results-single-grid">
+                  <article class="card highlight result-card">
+                    <div class="result-point"><span class="context-icon icon-tone-green"><i class="fa-solid fa-cubes"></i></span><p>Resultados tangibles: 2 modelos productivizados, Plantillas</p></div>
                   </article>
-                  <article class="card">
-                    <h3>Resultados tangibles</h3>
-                    <ul>
-                      <li>2 modelos productivizados y plantilla reusable lista para nuevos casos.</li>
-                      <li>Trazabilidad y auditoria del lifecycle con MLflow + persistencia en Teradata.</li>
-                      <li>Reduccion de tiempos de arranque por reutilizacion de TYM.MLOpsTemplate y CI/CD homogeneo.</li>
-                      <li>Reduccion de errores de integracion gracias a contratos y artefactos YAML.</li>
-                      <li>Reutilizacion demostrada en segundo caso sin redisenar infraestructura base.</li>
-                      <li>Documentacion operativa: README.md, USER-GUIDE.md y AZURE-DOCS.md.</li>
-                    </ul>
+                  <article class="card result-card">
+                    <div class="result-point"><span class="context-icon icon-tone-blue"><i class="fa-solid fa-database"></i></span><p>Trazabilidad y auditoría de ciclo de vida con registro en MLflow y persistencia en Teradata</p></div>
+                  </article>
+                  <article class="card result-card">
+                    <div class="result-point"><span class="context-icon icon-tone-amber"><i class="fa-solid fa-gauge-high"></i></span><p>Reducción de tiempos de arranque por reutilización de plantilla TYM.MLOpsTemplate y CI/CD homogéneo</p></div>
+                  </article>
+                  <article class="card result-card">
+                    <div class="result-point"><span class="context-icon icon-tone-red"><i class="fa-solid fa-shield-halved"></i></span><p>Reducción de errores de integración gracias a contratos de datos y artefactos en YAML</p></div>
+                  </article>
+                  <article class="card result-card">
+                    <div class="result-point"><span class="context-icon icon-tone-cyan"><i class="fa-solid fa-shuffle"></i></span><p>Reutilización demostrada en segundo caso de negocio sin rediseñar la infraestructura base</p></div>
+                  </article>
+                  <article class="card result-card">
+                    <div class="result-point"><span class="context-icon icon-tone-blue"><i class="fa-solid fa-file-lines"></i></span><p>Documentación operativa (README.md, USER-GUIDE.md, AZURE-DOCS.md) como soporte de transferencia y mantenimiento</p></div>
                   </article>
                 </div>
-                <div class="grid-2">
-                  <div class="image-box"><img src="./assets/images/report_html_assetallocation.PNG" alt="Reporte consolidado Asset Allocation" /></div>
-                  <div class="image-box"><img src="./assets/images/report_chronos_2.PNG" alt="Reporte consolidado Chronos" /></div>
-                </div>
               </article>
-
-              <span class="fragment story-step-trigger" data-fragment-index="0" data-story-step="1" aria-hidden="true"></span>
             </div>
           </div>
         </section>
@@ -833,102 +801,89 @@
           </div>
         </section>
 
-        <section>
-          <div class="slide-pad">
-            <h2>12. Cumplimiento aterrizado tecnicamente</h2>
-            <div class="grid-2">
-              <article class="card">
-                <h3>Evidencias tecnicas de cumplimiento</h3>
-                <ul>
-                  <li>Identidades, variables seguras y secretos fuera del codigo fuente.</li>
-                  <li>Segregacion por entornos y control de accesos por minimo privilegio.</li>
-                  <li>Registro verificable de versiones y decisiones de promotion (MLflow + Teradata).</li>
-                  <li>Trazabilidad reconstruible de ejecucion modelo -&gt; artefactos -&gt; inferencias.</li>
-                </ul>
-              </article>
-              <article class="card accent">
-                <h3>Aterrizaje por marco</h3>
-                <p><strong>AI Act:</strong> ficha de modelo y metadatos operativos con supervision humana.</p>
-                <p><strong>SR 11-7:</strong> tres lineas de defensa, validacion independiente y criterios de fallback.</p>
-                <p><strong>NIST AI RMF:</strong> matriz de riesgos por categorias y plan de contingencia.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div class="slide-pad">
+        <section class="memoria-slide">
+          <div class="slide-pad story-sequence-slide memoria-sequence-slide">
             <h2>13. Memoria economica y viabilidad</h2>
-            <div class="kpi-row">
-              <div class="kpi-card"><span>Workspace cloud</span><strong>1.349,92 EUR</strong></div>
-              <div class="kpi-card"><span>Datastore</span><strong>500,00 EUR</strong></div>
-              <div class="kpi-card"><span>Dedicacion (6,5 meses)</span><strong>8.977,80 EUR</strong></div>
-            </div>
-            <p class="statement">Total directo imputado: <strong>10.827,72 EUR</strong>.</p>
-            <div class="grid-2">
-              <div class="image-box fragment"><img src="./assets/images/memoria_economica_resource_group.png" alt="Coste resource group" /></div>
-              <div class="image-box fragment"><img src="./assets/images/memoria_economica_workspace.png" alt="Coste workspace" /></div>
+            <div class="story-sequence memoria-sequence">
+              <article class="story-stage memoria-stage is-active" data-story-focus="0">
+                <div class="kpi-row">
+                  <div class="kpi-card"><span>Workspace cloud</span><strong>1.349,92 EUR</strong></div>
+                  <div class="kpi-card"><span>Datastore</span><strong>500,00 EUR</strong></div>
+                  <div class="kpi-card"><span>Salario (6,5 meses)</span><strong>8.977,80 EUR</strong></div>
+                </div>
+                <p class="statement">Total directo imputado: <strong>10.827,72 EUR</strong>.</p>
+                <div class="grid-2 memoria-images-grid">
+                  <div class="image-box"><img src="./assets/images/memoria_economica_resource_group.png" alt="Coste resource group" /></div>
+                  <div class="image-box"><img src="./assets/images/memoria_economica_workspace.png" alt="Coste workspace" /></div>
+                </div>
+              </article>
+
+              <article class="story-stage memoria-stage" data-story-focus="1">
+                <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-scale-balanced"></i></span><h3>Viabilidad y ROI</h3></div>
+                <div class="grid-2 compare">
+                  <article class="card ok"><h3>Si existe evidencia</h3><p>Coste directo trazable y valor operativo: menos esfuerzo incremental, mas control y mas reutilizacion.</p></article>
+                  <article class="card warn"><h3>Pendiente de consolidar</h3><p>No se presenta ROI monetario cerrado por falta de serie historica suficientemente larga.</p></article>
+                </div>
+              </article>
+
+              <span class="fragment story-step-trigger" data-fragment-index="0" data-story-step="1" aria-hidden="true"></span>
             </div>
           </div>
         </section>
 
         <section>
-          <div class="slide-pad">
-            <h2>13. Viabilidad y ROI</h2>
-            <div class="grid-2 compare">
-              <article class="card ok"><h3>Si existe evidencia</h3><p>Coste directo trazable y valor operativo: menos esfuerzo incremental, mas control y mas reutilizacion.</p></article>
-              <article class="card warn"><h3>Pendiente de consolidar</h3><p>No se presenta ROI monetario cerrado por falta de serie historica suficientemente larga.</p></article>
-            </div>
-            <p class="statement">ROI aproximado operativo positivo (menos esfuerzo incremental y mas reutilizacion), con ROI financiero cerrado pendiente de consolidar por serie historica.</p>
-          </div>
-        </section>
+          <div class="slide-pad story-sequence-slide conclusions-final-slide">
+            <h2>14. Conclusiones</h2>
+            <div class="story-sequence conclusions-sequence">
+              <article class="story-stage conclusions-stage is-active" data-story-focus="0">
+                <article class="card conclusions-card">
+                  <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-clipboard-check"></i></span><span>Cumplimiento de los objetivos (general + 6 OE)</span></h3>
+                  <table class="clean-table compact-table conclusions-table" aria-label="Cumplimiento de objetivos">
+                    <thead><tr><th>Objetivo</th><th>Cumplimiento</th></tr></thead>
+                    <tbody>
+                      <tr><td>General</td><td>Se disena, implementa y valida una arquitectura MLOps reusable en Azure ML.</td></tr>
+                      <tr><td>OE1</td><td>Chronos queda operativizado end-to-end con train, inferencia y reporting trazables.</td></tr>
+                      <tr><td>OE2</td><td>Se formaliza TYM.MLOpsTemplate con contratos y componentes reutilizables.</td></tr>
+                      <tr><td>OE3</td><td>La transferibilidad se valida en Asset Allocation como segundo caso real.</td></tr>
+                      <tr><td>OE4</td><td>Se entrega documentacion tecnica y guia paso a paso de uso de plantillas.</td></tr>
+                      <tr><td>OE5</td><td>La implementacion migra y opera sobre AML SDK v2.</td></tr>
+                      <tr><td>OE6</td><td>Se garantiza trazabilidad auditable en Teradata para modelos e inferencias.</td></tr>
+                    </tbody>
+                  </table>
+                </article>
+              </article>
 
-        <section data-auto-animate>
-          <div class="slide-pad">
-            <h2 data-id="conclu-title">14. Conclusiones</h2>
-            <div class="grid-2" data-id="conclu-grid">
-              <article class="card">
-                <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-clipboard-check"></i></span><span>Objetivo general y OE</span></h3>
-                <p>Cumplido: diseno, implementacion y validacion de la solucion MLOps, con cumplimiento de los 6 objetivos especificos.</p>
+              <article class="story-stage conclusions-stage" data-story-focus="1">
+                <article class="card conclusions-card">
+                  <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-graduation-cap"></i></span><span>Competencias adquiridas (6 competencias)</span></h3>
+                  <table class="clean-table compact-table conclusions-table" aria-label="Cumplimiento de competencias">
+                    <thead><tr><th>Competencia</th><th>Cumplimiento</th></tr></thead>
+                    <tbody>
+                      <tr><td>M2N104</td><td>Se construyen flujos reproducibles y analitica aplicada al dominio financiero.</td></tr>
+                      <tr><td>M2N110</td><td>Se disena una arquitectura escalable y mantenible para entorno regulado.</td></tr>
+                      <tr><td>M2N111</td><td>Se automatizan pipelines y despliegues mediante CI/CD en Azure ML.</td></tr>
+                      <tr><td>CTFM01</td><td>Se documenta y comunica tecnicamente el trabajo con evidencia clara.</td></tr>
+                      <tr><td>CTFM02</td><td>Se integra el trabajo en contexto profesional con negocio y plataforma.</td></tr>
+                      <tr><td>CTFM03</td><td>Se evalua el impacto social, regulatorio, operativo y economico del proyecto.</td></tr>
+                    </tbody>
+                  </table>
+                </article>
               </article>
-              <article class="card">
-                <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-graduation-cap"></i></span><span>Competencias</span></h3>
-                <p>Se consolidan 6 competencias (M2N104, M2N110, M2N111, CTFM01, CTFM02 y CTFM03) en un entorno real.</p>
-              </article>
-            </div>
-          </div>
-        </section>
 
-        <section data-auto-animate>
-          <div class="slide-pad">
-            <h2 data-id="conclu-title">14. Conclusiones: lectura cuantitativa del impacto</h2>
-            <div class="kpi-row" data-id="conclu-grid">
-              <div class="kpi-card"><span>Chronos Engine</span><strong>~4 meses</strong></div>
-              <div class="kpi-card"><span>Asset Allocation</span><strong>~3 semanas</strong></div>
-              <div class="kpi-card highlight"><span>Mejora de arranque</span><strong>~75%</strong></div>
-            </div>
-            <p class="statement">Mejora operativa relativa: influida por aprendizaje acumulado, datos y permisos, pero consistente con el valor del estandar reusable.</p>
-          </div>
-        </section>
+              <article class="story-stage conclusions-stage" data-story-focus="2">
+                <article class="card conclusions-time-card">
+                  <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-gauge-high"></i></span><span>Tiempo estimado de productivización:</span></h3>
+                  <ul class="conclusions-time-list">
+                    <li>Chornos Engine: 4 meses</li>
+                    <li>Asset Allocation: 3 semanas</li>
+                  </ul>
+                  <p class="statement">* Entre chronos a asset ha habido una reduccion de 75% de tiempo de productivización y las plantillas pueden llegar a tener bastante impacto en la reducción de tiempos (sin evaluar las particularidades de cada proyecto).</p>
+                </article>
+              </article>
 
-        <section data-auto-animate>
-          <div class="slide-pad">
-            <h2 data-id="conclu-title">14. Conclusiones: cierre conceptual</h2>
-            <div class="grid-3 compact" data-id="conclu-grid">
-              <article class="card">
-                <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-shield-halved"></i></span><span>De ejecucion manual</span></h3>
-                <p>a operacion gobernada.</p>
-              </article>
-              <article class="card">
-                <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-cubes"></i></span><span>De caso puntual</span></h3>
-                <p>a base reusable de plataforma.</p>
-              </article>
-              <article class="card">
-                <h3 class="card-h3-with-icon"><span class="context-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span><span>De nube infraestructura</span></h3>
-                <p>a nube como entorno de gobernanza.</p>
-              </article>
+              <span class="fragment story-step-trigger" data-fragment-index="0" data-story-step="1" aria-hidden="true"></span>
+              <span class="fragment story-step-trigger" data-fragment-index="1" data-story-step="2" aria-hidden="true"></span>
             </div>
-            <p class="statement">La aportacion del TFM no es un modelo aislado: es una forma madura de industrializar modelos financieros.</p>
           </div>
         </section>
 

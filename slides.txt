@@ -31,7 +31,7 @@ ODS 16: Paz, justicia e instituciones sólidas
 | Antecedentes |
 +--------------+
 Plataforma MLOps # Presentacion/presentation/assets/images/plataforma_mlops.PNG
-Varios modelos productivizados (sin buenas practicas)
+Varios modelos previamente productivizados
 
 +--------------------------+
 | Objetivos y competencias | # Partiendo de los antecedentes se definen los objetivos
@@ -50,12 +50,17 @@ Imagen de la planificación # Presentacion/presentation/assets/images/planificac
 +------------------+
 Stack de herramientas: Azure Repos, Azure DevOps, AzureML, Teradata, MLFlow
 Flujo MLOps: Diagrama de flujo (Azure Repos -> Azure DevOps -> AzureML -> MLFlow -> Teradata -> Report)
-Buenas prácticas: Separar logica de negocio y modelo, modularizacion y parametrizacion del codigo, etc. 
+Buenas prácticas:
+- Separación de lógica de negocio y plataforma: separar el código del modelo de los componentes que orquestan su ejecución para reducir acoplamiento, facilitar pruebas y reutilizar infraestructura.
+- Modularización y parametrización del código: dividir el pipeline en componentes con responsabilidad única y mover la configuración fuera del código para mejorar mantenibilidad y trazabilidad.
+- Contratos explícitos y trazabilidad entre componentes: definir entradas, salidas y metadatos de cada componente, asociando versiones a cada ejecución para garantizar reproducibilidad y auditoría.
+- Logging y evidencias de ejecución: registrar métricas, artefactos y configuraciones de cada ejecución para poder explicar desviaciones y reconstruir resultados.
 
 +---------------------------------------------------+
 | Caso principal: operativización de Chronos Engine |
 +---------------------------------------------------+
-Objetivo del Modelo: Que es Chronos Engine / Para que productivizarlo (LK necesita las inferencias): 12 sectores, 4 modelos (y subtipos RANSAC, DT, RF, ...), 
+Definición del modelo: Chronos Engine es un modelo que analiza índices de Renta Fija Privada (RFP) y evalúa si están caros o baratos comparando los niveles observados con las predicciones del modelo
+Cobertura: 12 sectores, 4 modelos (y subtipos RANSAC, DT, RF, ...).
 Pipeline Training # Por sector # Presentacion/presentation/assets/images/train_chronosengine.PNG
 Pipeline Inferencia + Backtest + Report # Por sector Presentacion/presentation/assets/images/infer_chronosengine.PNG
 Enseñar report por sector # Presentacion/presentation/assets/images/report_chronos_1.PNG,  Presentacion/presentation/assets/images/report_chronos_2.PNG y Presentacion/presentation/assets/images/report_chronos_3.PNG
@@ -66,14 +71,9 @@ Enseñar report sumup # Presentacion/presentation/assets/images/report_chronos_4
 | Estandarización del despliegue con TYM.MLOpsTemplate |
 +------------------------------------------------------+
 ¿Por que unas plantillas? -> Mayoria del codigo reusable, ..
-Sí resuelve
-- Estructura base de repositorio y contratos
-- Despliegue homogéneo por entornos y CI/CD
-- Registro y gobernanza del lifecycle con MLflow + Teradata
-No resuelve
-- La lógica de negocio del modelo
-- Las features, algoritmos y reglas concretas
-- Los KPIs funcionales del caso de uso.
+Bloque comparativo en una misma diapositiva (sin bullets)
+Sí resuelve: Estructura base de repositorio y contratos; despliegue homogéneo por entornos y CI/CD; registro y gobernanza del lifecycle con MLflow + Teradata.
+No resuelve: la lógica de negocio del modelo; las features, algoritmos y reglas concretas; los KPIs funcionales del caso de uso.
 Estructura de las plantillas # Presentacion/presentation/assets/images/template_explicacion.PNG
 Ventajas que aporta las plantillas
 
@@ -124,8 +124,8 @@ ROI aproximado
 +--------------+
 | Conclusiones |
 +--------------+
-Cumplimiento de los objetivos (general + 6 OE)
-Competencias adquiridas (6 competencias)
+Cumplimiento de los objetivos (general + 6 OE) # Tabla concisa con 2 columnas: Objetivo y Cumplimiento (frase breve y concisa de por que se ha cumplido)
+Competencias adquiridas (6 competencias) # Tabla concisa con 2 columnas: Competencia y Cumplimiento (frase breve y concisa de por que se ha cumplido)
 Tiempo estimado de productivización:
 - Chornos Engine: 4 meses
 - Asset Allocation: 3 semanas
