@@ -720,6 +720,11 @@
 }
 
 .chronos-definition-card,
+.chronos-family-matrix {
+  min-height: 0;
+}
+
+.chronos-definition-card,
 .chronos-family-card,
 .chronos-stage-context {
   position: relative;
@@ -729,6 +734,7 @@
 }
 
 .chronos-definition-card {
+  height: 100%;
   padding: 18px;
 }
 
@@ -783,12 +789,14 @@
 .chronos-family-matrix {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: minmax(162px, 1fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  height: 100%;
+  align-items: stretch;
 }
 
 .chronos-family-card {
-  height: 100%;
+  min-height: 0;
   padding: 14px;
   display: flex;
   flex-direction: column;
@@ -1453,11 +1461,14 @@
 
   .chronos-definition-card {
     min-height: 0;
+    height: auto;
   }
 
   .chronos-family-matrix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
     grid-auto-rows: auto;
+    height: auto;
   }
 
   .chronos-report-grid {
@@ -1589,6 +1600,10 @@
     grid-auto-rows: auto;
   }
 
+  .chronos-family-matrix {
+    grid-template-rows: none;
+  }
+
   .results-sequence-slide .story-sequence {
     min-height: 0;
   }
@@ -1656,14 +1671,6 @@
   .context-ods-table th {
     width: 84px;
   }
-}
-
-/* Fit terminal containers to active content */
-.reveal .slides .story-sequence,
-.reveal .slides .mlops-sequence,
-.reveal .slides .chronos-sequence-shell {
-  min-height: 0 !important;
-  height: auto;
 }
 
 /* Readability boost: white real slide content, keep visual accents */

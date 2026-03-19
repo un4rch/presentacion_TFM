@@ -503,18 +503,6 @@
           stage.classList.toggle("is-active", Number.isFinite(stageIndex) && stageIndex === activeStep);
         });
 
-        var sequence = target.querySelector(".mlops-sequence");
-        if (sequence) {
-          var activeStage = sequence.querySelector("[data-mlops-focus].is-active") || sequence.querySelector("[data-mlops-focus]");
-          if (activeStage) {
-            sequence.style.minHeight = "0px";
-            sequence.style.height = "auto";
-            var measuredHeight = Math.ceil(activeStage.scrollHeight);
-            if (Number.isFinite(measuredHeight) && measuredHeight > 0) {
-              sequence.style.height = measuredHeight + "px";
-            }
-          }
-        }
       });
     }
 
@@ -691,18 +679,6 @@
           stage.classList.toggle("is-active", Number.isFinite(stageIndex) && stageIndex === activeStep);
         });
 
-        var sequence = target.querySelector(".story-sequence");
-        if (sequence) {
-          var activeStage = sequence.querySelector("[data-story-focus].is-active") || sequence.querySelector("[data-story-focus]");
-          if (activeStage) {
-            sequence.style.minHeight = "0px";
-            sequence.style.height = "auto";
-            var measuredHeight = Math.ceil(activeStage.scrollHeight);
-            if (Number.isFinite(measuredHeight) && measuredHeight > 0) {
-              sequence.style.height = measuredHeight + "px";
-            }
-          }
-        }
       });
     }
 
