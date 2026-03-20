@@ -77,6 +77,12 @@
   padding-top: 74px;
 }
 
+@media (min-width: 1121px) {
+  .reveal .slides section > .slide-pad {
+    left: calc((var(--section-pad-right) - var(--section-pad-left)) / 2);
+  }
+}
+
 .slide-pad::before {
   content: "";
   position: absolute;
@@ -518,8 +524,6 @@
 .premium-meteor-slide .premium-center-content {
   width: min(1440px, 100%);
   margin-inline: auto;
-  position: relative;
-  left: calc((var(--section-pad-right) - var(--section-pad-left)) / 2);
 }
 
 .premium-meteor-slide .closing .premium-center-content {
