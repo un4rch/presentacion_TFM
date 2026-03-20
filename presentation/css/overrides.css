@@ -33,8 +33,10 @@
 
 .reveal .slides section {
   box-sizing: border-box;
-  padding-left: 82px;
-  padding-right: 30px;
+  --section-pad-left: 82px;
+  --section-pad-right: 30px;
+  padding-left: var(--section-pad-left);
+  padding-right: var(--section-pad-right);
 }
 
 .reveal h1,
@@ -511,6 +513,19 @@
 
 .premium-meteor-slide .hero {
   max-width: 1440px;
+}
+
+.premium-meteor-slide .premium-center-content {
+  width: min(1440px, 100%);
+  margin-inline: auto;
+  position: relative;
+  left: calc((var(--section-pad-right) - var(--section-pad-left)) / 2);
+}
+
+.premium-meteor-slide .closing .premium-center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .premium-meteor-slide .hero .meta-grid {
@@ -1400,8 +1415,10 @@
 
 @media (max-width: 1120px) {
   .reveal .slides section {
-    padding-left: 64px;
-    padding-right: 16px;
+    --section-pad-left: 64px;
+    --section-pad-right: 16px;
+    padding-left: var(--section-pad-left);
+    padding-right: var(--section-pad-right);
   }
 
   .reveal .slides {
