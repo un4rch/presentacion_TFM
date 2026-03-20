@@ -1283,21 +1283,43 @@
       return null;
     }
 
-    var slideToNav = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 13, 13, 14, 14, 14, 15, 16];
+    function findActiveItem(indexH) {
+      var safeIndex = Number(indexH);
+      var exactMatch = null;
+      var closestMatch = null;
+      var closestSlide = -Infinity;
 
-    function setActive(indexH) {
-      var safeIndex = Math.max(0, Math.min(indexH, slideToNav.length - 1));
-      var activeNav = slideToNav[safeIndex];
-      var activeTitle = "PORTADA";
+      if (!Number.isFinite(safeIndex)) {
+        safeIndex = 0;
+      }
 
       items.forEach(function (item) {
-        var itemIndex = Number(item.getAttribute("data-nav"));
-        var isActive = itemIndex === activeNav;
-        item.classList.toggle("is-active", isActive);
-
-        if (isActive) {
-          activeTitle = item.getAttribute("aria-label") || item.textContent || "PORTADA";
+        var slideIndex = Number(item.getAttribute("data-slide"));
+        if (!Number.isFinite(slideIndex)) {
+          return;
         }
+
+        if (slideIndex === safeIndex) {
+          exactMatch = item;
+          return;
+        }
+
+        if (slideIndex <= safeIndex && slideIndex > closestSlide) {
+          closestSlide = slideIndex;
+          closestMatch = item;
+        }
+      });
+
+      return exactMatch || closestMatch || items[0];
+    }
+
+    function setActive(indexH) {
+      var activeItem = findActiveItem(indexH);
+      var activeTitle = activeItem.getAttribute("aria-label") || activeItem.textContent || "PORTADA";
+
+      items.forEach(function (item) {
+        var isActive = item === activeItem;
+        item.classList.toggle("is-active", isActive);
       });
 
       windowIndexNodes.forEach(function (node) {
