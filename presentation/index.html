@@ -175,7 +175,8 @@
                   <li class="fragment" data-fragment-index="9">Resultados obtenidos</li>
                   <li class="fragment" data-fragment-index="10">Marco legislativo</li>
                   <li class="fragment" data-fragment-index="11">Memoria económica y viabilidad</li>
-                  <li class="fragment" data-fragment-index="12">Conclusiones y líneas futuras</li>
+                  <li class="fragment" data-fragment-index="12">Conclusiones</li>
+                  <li class="fragment" data-fragment-index="13">Trabajo futuro</li>
                 </ol>
               </div>
               <div class="chart-panel finance-grid">
@@ -371,7 +372,7 @@
             <div class="timeline phases planning-premium-grid">
               <div class="step planning-step focus-target" data-plan-focus="0">
                 <div class="planning-head"><span class="context-icon"><i class="fa-solid fa-diagram-project"></i></span><strong>Fase 1</strong></div>
-                <span>Chronos Engine</span>
+                <span>Productivización del modelo de Renta Fija Privada</span>
               </div>
               <div class="step planning-step focus-target" data-plan-focus="1">
                 <div class="planning-head"><span class="context-icon"><i class="fa-solid fa-cubes"></i></span><strong>Fase 2</strong></div>
@@ -379,7 +380,7 @@
               </div>
               <div class="step planning-step focus-target" data-plan-focus="2">
                 <div class="planning-head"><span class="context-icon"><i class="fa-solid fa-shuffle"></i></span><strong>Fase 3</strong></div>
-                <span>Validación con Asset Allocation</span>
+                <span>Validación con el modelo Asset Allocation</span>
               </div>
             </div>
             <div class="image-wide planning-image-frame focus-target" data-plan-focus="3"><img src="./assets/images/planificacion.png" alt="Cronograma del proyecto" /></div>
@@ -432,6 +433,7 @@
 
               <span class="fragment mlops-step-trigger" data-fragment-index="0" data-mlops-step="1" aria-hidden="true"></span>
               <span class="fragment mlops-step-trigger" data-fragment-index="1" data-mlops-step="2" aria-hidden="true"></span>
+              <span class="fragment mlops-practice-expand-trigger" data-fragment-index="2" aria-hidden="true"></span>
             </div>
           </div>
         </section>
@@ -592,18 +594,23 @@
             <div class="story-sequence">
               <article class="story-stage" data-story-focus="0">
                 <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-layer-group"></i></span><h3>Por qué usar plantillas</h3></div>
-                <p class="mlops-caption">La mayoría del código de plataforma es reusable. Estandarizar evita arrancar desde cero en cada modelo nuevo.</p>
-                <div class="kpi-row executive">
+                <p class="mlops-caption template-intro-caption">La mayoría del código de plataforma es reusable. Estandarizar evita arrancar desde cero en cada modelo nuevo.</p>
+                <div class="kpi-row executive template-intro-kpi">
                   <div class="kpi-card highlight"><span>Reutilizable</span><strong>Base común</strong></div>
                   <div class="kpi-card highlight"><span>Tiempo de arranque</span><strong>Mucho menor</strong></div>
                   <div class="kpi-card highlight"><span>Calidad operativa</span><strong>Homogénea</strong></div>
+                </div>
+                <div class="grid-3 compact story-bullet-grid template-intro-notes">
+                  <article class="card"><p>Se reutiliza estructura técnica y contratos base desde el primer día del proyecto.</p></article>
+                  <article class="card"><p>El arranque se acelera al mantener pipeline, CI/CD y convenciones ya validadas.</p></article>
+                  <article class="card"><p>La operación queda homogénea y trazable para auditoría, mantenimiento y evolución.</p></article>
                 </div>
               </article>
 
               <article class="story-stage template-scope-stage" data-story-focus="1">
                 <div class="grid-2 story-intro-grid template-scope-grid">
                   <article class="card template-scope-card">
-                    <h3 class="template-scope-title"><span class="context-icon icon-tone-green"><i class="fa-solid fa-check"></i></span><span>Sí resuelve</span></h3>
+                    <h3 class="template-scope-title"><span class="context-icon icon-tone-green"><i class="fa-solid fa-gears"></i></span><span>Procesos automatizados</span></h3>
                     <div class="template-scope-lines">
                       <p>Estructura base de repositorio y contratos.</p>
                       <p>Despliegue homogéneo por entornos y CI/CD.</p>
@@ -611,9 +618,9 @@
                     </div>
                   </article>
                   <article class="card warn template-scope-card">
-                    <h3 class="template-scope-title"><span class="context-icon icon-tone-red"><i class="fa-solid fa-xmark"></i></span><span>No resuelve</span></h3>
+                    <h3 class="template-scope-title"><span class="context-icon icon-tone-red"><i class="fa-solid fa-brain"></i></span><span>En función del modelo</span></h3>
                     <div class="template-scope-lines">
-                      <p>La lógica de negocio del modelo.</p>
+                      <p>La lógica de negocio.</p>
                       <p>Las features, algoritmos y reglas concretas.</p>
                       <p>Los KPIs funcionales del caso de uso.</p>
                     </div>
@@ -766,22 +773,22 @@
                 <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-chart-line"></i></span><h3>Resultados tangibles y operativos</h3></div>
                 <div class="grid-2 results-single-grid">
                   <article class="card highlight result-card">
-                    <div class="result-point"><span class="context-icon icon-tone-green"><i class="fa-solid fa-cubes"></i></span><p>Resultados tangibles: 2 modelos productivizados, Plantillas</p></div>
+                    <div class="result-point"><span class="context-icon icon-tone-green"><i class="fa-solid fa-trophy"></i></span><p>Resultados tangibles: 2 modelos productivizados, Plantillas</p></div>
                   </article>
                   <article class="card result-card">
-                    <div class="result-point"><span class="context-icon icon-tone-blue"><i class="fa-solid fa-database"></i></span><p>Trazabilidad y auditoría de ciclo de vida con registro en MLflow y persistencia en Teradata</p></div>
+                    <div class="result-point"><span class="context-icon icon-tone-blue"><i class="fa-solid fa-trophy"></i></span><p>Trazabilidad y auditoría de ciclo de vida con registro en MLflow y persistencia en Teradata</p></div>
                   </article>
                   <article class="card result-card">
-                    <div class="result-point"><span class="context-icon icon-tone-amber"><i class="fa-solid fa-gauge-high"></i></span><p>Reducción de tiempos de arranque por reutilización de plantilla TYM.MLOpsTemplate y CI/CD homogéneo</p></div>
+                    <div class="result-point"><span class="context-icon icon-tone-amber"><i class="fa-solid fa-trophy"></i></span><p>Reducción de tiempos de arranque por reutilización de plantilla TYM.MLOpsTemplate y CI/CD homogéneo</p></div>
                   </article>
                   <article class="card result-card">
-                    <div class="result-point"><span class="context-icon icon-tone-red"><i class="fa-solid fa-shield-halved"></i></span><p>Reducción de errores de integración gracias a contratos de datos y artefactos en YAML</p></div>
+                    <div class="result-point"><span class="context-icon icon-tone-red"><i class="fa-solid fa-trophy"></i></span><p>Reducción de errores de integración gracias a contratos de datos y artefactos en YAML</p></div>
                   </article>
                   <article class="card result-card">
-                    <div class="result-point"><span class="context-icon icon-tone-cyan"><i class="fa-solid fa-shuffle"></i></span><p>Reutilización demostrada en segundo caso de negocio sin rediseñar la infraestructura base</p></div>
+                    <div class="result-point"><span class="context-icon icon-tone-cyan"><i class="fa-solid fa-trophy"></i></span><p>Reutilización demostrada en segundo caso de negocio sin rediseñar la infraestructura base</p></div>
                   </article>
                   <article class="card result-card">
-                    <div class="result-point"><span class="context-icon icon-tone-blue"><i class="fa-solid fa-file-lines"></i></span><p>Documentación operativa (README.md, USER-GUIDE.md, AZURE-DOCS.md) como soporte de transferencia y mantenimiento</p></div>
+                    <div class="result-point"><span class="context-icon icon-tone-blue"><i class="fa-solid fa-trophy"></i></span><p>Documentación operativa (README.md, USER-GUIDE.md, AZURE-DOCS.md) como soporte de transferencia y mantenimiento</p></div>
                   </article>
                 </div>
               </article>
@@ -827,8 +834,8 @@
               <article class="story-stage memoria-stage" data-story-focus="1">
                 <div class="story-stage-head"><span class="context-icon"><i class="fa-solid fa-scale-balanced"></i></span><h3>Viabilidad y ROI</h3></div>
                 <div class="grid-2 compare">
-                  <article class="card ok"><h3>Sí existe evidencia</h3><p>Coste directo trazable y valor operativo: menos esfuerzo incremental, más control y más reutilización.</p></article>
-                  <article class="card warn"><h3>Pendiente de consolidar</h3><p>No se presenta ROI monetario cerrado por falta de serie histórica suficientemente larga.</p></article>
+                  <article class="card ok"><h3 class="card-h3-with-icon"><span class="context-icon icon-tone-green"><i class="fa-solid fa-check"></i></span><span>Sí existe evidencia</span></h3><p>Reducción de tiempos de arranque por reutilización del estándar de productivización</p></article>
+                  <article class="card warn"><h3 class="card-h3-with-icon"><span class="context-icon icon-tone-amber"><i class="fa-solid fa-screwdriver-wrench"></i></span><span>Retorno sobre la inversión (ROI)</span></h3><p>Pendiente de consolidar mediante nuevas productivizaciones y la utilización de la información de los modelos para las inversiones de la empresa.</p></article>
                 </div>
               </article>
 
@@ -883,7 +890,7 @@
                     <li>Chronos Engine: 4 meses</li>
                     <li>Asset Allocation: 3 semanas</li>
                   </ul>
-                  <p class="statement">* Entre Chronos y Asset ha habido una reducción del 75% del tiempo de productivización, y las plantillas pueden tener un impacto notable en la reducción de tiempos (sin evaluar las particularidades de cada proyecto).</p>
+                  <p class="statement">* Entre el modelo de Renta Fija Privada y el de Asset Allocation ha habido una reducción del 75% del tiempo de productivización utilizando el estándar de productivización. Las plantillas pueden tener un impacto notable en la reducción de tiempos.</p>
                 </article>
               </article>
 

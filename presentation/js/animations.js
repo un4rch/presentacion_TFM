@@ -503,6 +503,21 @@
           stage.classList.toggle("is-active", Number.isFinite(stageIndex) && stageIndex === activeStep);
         });
 
+        var practiceExpanded = false;
+        var practiceTriggers = target.querySelectorAll(".mlops-practice-expand-trigger");
+        practiceTriggers.forEach(function (trigger) {
+          if (trigger.classList.contains("visible")) {
+            practiceExpanded = true;
+          }
+        });
+
+        var practiceStage = target.querySelector(".mlops-stage-practices");
+        if (practiceStage) {
+          var practiceStep = Number(practiceStage.getAttribute("data-mlops-focus"));
+          var shouldExpand = Number.isFinite(practiceStep) && activeStep === practiceStep && practiceExpanded;
+          practiceStage.classList.toggle("is-expanded", shouldExpand);
+        }
+
       });
     }
 
