@@ -12,6 +12,10 @@
   --premium-green: #34d399;
   --premium-red: #fb7185;
   --premium-blue: #60a5fa;
+  --text-white-strong: #ffffff;
+  --text-white-main: #f7fafd;
+  --text-white-soft: #eef3f8;
+  --text-white-muted: #e6edf4;
 }
 
 ::selection {
@@ -1934,27 +1938,111 @@
   }
 }
 
-/* Readability boost: white real slide content, keep visual accents */
+/* Text harmonization: white readable content, preserve accent language */
+.reveal .slides .slide-pad {
+  color: var(--text-white-main);
+}
+
 .reveal .slides .slide-pad h1,
 .reveal .slides .slide-pad h2,
 .reveal .slides .slide-pad h3,
 .reveal .slides .slide-pad h4,
 .reveal .slides .slide-pad h5,
 .reveal .slides .slide-pad h6,
+.reveal .slides .slide-pad th,
+.reveal .slides .slide-pad strong {
+  color: var(--text-white-strong) !important;
+}
+
 .reveal .slides .slide-pad p,
 .reveal .slides .slide-pad li,
-.reveal .slides .slide-pad th,
 .reveal .slides .slide-pad td,
 .reveal .slides .slide-pad label,
 .reveal .slides .slide-pad small,
-.reveal .slides .slide-pad strong,
 .reveal .slides .slide-pad em,
 .reveal .slides .slide-pad a,
 .reveal .slides .slide-pad code,
+.reveal .slides .slide-pad .lead,
+.reveal .slides .slide-pad .statement,
+.reveal .slides .slide-pad .node,
+.reveal .slides .slide-pad .arrow,
+.reveal .slides .slide-pad .chart-caption,
+.reveal .slides .slide-pad .mlops-caption,
+.reveal .slides .slide-pad .context-premium-card p,
+.reveal .slides .slide-pad .objective-tile p,
+.reveal .slides .slide-pad .competencies-table td,
+.reveal .slides .slide-pad .clean-table td,
+.reveal .slides .slide-pad .clean-table th,
+.reveal .slides .slide-pad .context-ods-table th,
+.reveal .slides .slide-pad .context-ods-table td,
+.reveal .slides .slide-pad .chronos-eyebrow,
+.reveal .slides .slide-pad .chronos-definition-copy,
+.reveal .slides .slide-pad .chronos-definition-note,
+.reveal .slides .slide-pad .chronos-family-desc,
+.reveal .slides .slide-pad .chronos-family-sub,
+.reveal .slides .slide-pad .chronos-chip,
+.reveal .slides .slide-pad .chronos-stage-context p,
+.reveal .slides .slide-pad .chronos-stage-list li,
+.reveal .slides .slide-pad .chronos-inline-metrics span,
+.reveal .slides .slide-pad .result-point p,
+.reveal .slides .slide-pad .template-scope-lines p,
 .reveal .slides .slide-pad li::marker {
-  color: #ffffff !important;
+  color: var(--text-white-main) !important;
 }
 
-.reveal .slides .slide-pad .slide-head .slide-counter {
+.reveal .slides .slide-pad .slide-head .slide-counter,
+.reveal .slides .slide-pad .context-premium-head span,
+.reveal .slides .slide-pad .chronos-premium-slide .slide-counter {
   color: var(--premium-green) !important;
+}
+
+.reveal .slides .slide-pad .eyebrow,
+.reveal .slides .slide-pad .meta-grid div span,
+.reveal .slides .slide-pad .footer-line {
+  color: var(--premium-green) !important;
+}
+
+.reveal .slides .slide-pad .subtitle {
+  color: var(--text-white-soft) !important;
+}
+
+.reveal .slides .slide-pad .context-premium-card,
+.reveal .slides .slide-pad .context-ods-wrap,
+.reveal .slides .slide-pad .objectives-premium-panel .focus-target,
+.reveal .slides .slide-pad .planning-step,
+.reveal .slides .slide-pad .planning-image-frame,
+.reveal .slides .slide-pad .govern-focus-item {
+  opacity: 0.9 !important;
+  filter: none !important;
+}
+
+.reveal .slides .slide-pad .context-premium-card.is-active,
+.reveal .slides .slide-pad .context-ods-wrap.is-active,
+.reveal .slides .slide-pad .objectives-premium-panel .focus-target.is-active,
+.reveal .slides .slide-pad .planning-step.is-active,
+.reveal .slides .slide-pad .planning-image-frame.is-active,
+.reveal .slides .slide-pad .govern-focus-item.is-active {
+  opacity: 1 !important;
+}
+
+.reveal .slides .slide-pad .index-column .clean-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: index-neon-counter;
+}
+
+.reveal .slides .slide-pad .index-column .clean-list li {
+  counter-increment: index-neon-counter;
+  padding-left: 2em;
+}
+
+.reveal .slides .slide-pad .index-column .clean-list li::before {
+  content: counter(index-neon-counter) ".";
+  position: absolute;
+  left: 0;
+  width: 1.55em;
+  text-align: right;
+  color: var(--premium-green) !important;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.24);
+  font-weight: 600;
 }

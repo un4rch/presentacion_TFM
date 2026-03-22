@@ -334,6 +334,10 @@
           }
         });
 
+        if (activeStep < 0) {
+          activeStep = 0;
+        }
+
         var targets = candidate.querySelectorAll("[data-context-card]");
         targets.forEach(function (node) {
           var cardIndex = Number(node.getAttribute("data-context-card"));
@@ -385,6 +389,10 @@
           }
         });
 
+        if (objectiveStep < 0) {
+          objectiveStep = 0;
+        }
+
         var objectiveTargets = swap.querySelectorAll("[data-objective-focus]");
         objectiveTargets.forEach(function (node) {
           var nodeStep = Number(node.getAttribute("data-objective-focus"));
@@ -403,6 +411,10 @@
             competencyStep = step;
           }
         });
+
+        if (competencyStep < 0) {
+          competencyStep = 0;
+        }
 
         var competencyTargets = swap.querySelectorAll("[data-competency-focus]");
         competencyTargets.forEach(function (node) {
@@ -453,6 +465,10 @@
             activeStep = step;
           }
         });
+
+        if (activeStep < 0) {
+          activeStep = 0;
+        }
 
         var focusNodes = target.querySelectorAll("[data-plan-focus]");
         focusNodes.forEach(function (node) {
