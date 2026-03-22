@@ -287,7 +287,10 @@
       objectiveSwap.classList.toggle("is-competencies", showCompetencies);
     }
 
-    sync();
+    var initialSwapSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialSwapSlide) {
+      sync(initialSwapSlide);
+    }
     return { sync: sync };
   }
 
@@ -299,7 +302,7 @@
     }
 
     function sync(slide) {
-      var targetSlides = slides;
+      var targetSlides = slide ? slides : [];
 
       if (slide) {
         if (slide.classList && slide.classList.contains("context-premium-slide")) {
@@ -340,7 +343,10 @@
       });
     }
 
-    sync();
+    var initialContextSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialContextSlide) {
+      sync(initialContextSlide);
+    }
     return { sync: sync };
   }
 
@@ -406,7 +412,10 @@
       });
     }
 
-    sync();
+    var initialObjectivesSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialObjectivesSlide) {
+      sync(initialObjectivesSlide);
+    }
     return { sync: sync };
   }
 
@@ -453,7 +462,10 @@
       });
     }
 
-    sync();
+    var initialPlanningSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialPlanningSlide) {
+      sync(initialPlanningSlide);
+    }
     return { sync: sync };
   }
 
@@ -462,6 +474,20 @@
 
     if (!slides.length) {
       return null;
+    }
+
+    function syncSequenceHeight(target, activeStage) {
+      var sequence = target ? target.querySelector(".mlops-sequence") : null;
+      if (!sequence) {
+        return;
+      }
+
+      sequence.classList.add("mlops-sequence-auto-height");
+
+      sequence.style.removeProperty("height");
+      if (!activeStage) {
+        return;
+      }
     }
 
     function sync(slide) {
@@ -476,11 +502,35 @@
             targetSlides = nested;
           }
         }
+      } else if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+        var currentSlide = Reveal.getCurrentSlide();
+        if (currentSlide) {
+          var currentMlops = currentSlide.classList && currentSlide.classList.contains("mlops-sequence-slide")
+            ? currentSlide
+            : currentSlide.querySelector && currentSlide.querySelector(".mlops-sequence-slide");
+          if (currentMlops) {
+            targetSlides = [currentMlops];
+          }
+        }
+      }
+
+      if (!targetSlides.length) {
+        return;
+      }
+
+      targetSlides = targetSlides.filter(function (target) {
+        var owner = target && target.closest ? target.closest("section") : null;
+        return !owner || owner.classList.contains("present");
+      });
+
+      if (!targetSlides.length) {
+        return;
       }
 
       targetSlides.forEach(function (target) {
         var activeStep = -1;
         var triggers = target.querySelectorAll(".mlops-step-trigger");
+        var activeStage = null;
 
         triggers.forEach(function (trigger) {
           if (!trigger.classList.contains("visible")) {
@@ -500,7 +550,11 @@
         var stages = target.querySelectorAll("[data-mlops-focus]");
         stages.forEach(function (stage) {
           var stageIndex = Number(stage.getAttribute("data-mlops-focus"));
-          stage.classList.toggle("is-active", Number.isFinite(stageIndex) && stageIndex === activeStep);
+          var isActive = Number.isFinite(stageIndex) && stageIndex === activeStep;
+          stage.classList.toggle("is-active", isActive);
+          if (isActive) {
+            activeStage = stage;
+          }
         });
 
         var practiceExpanded = false;
@@ -518,10 +572,45 @@
           practiceStage.classList.toggle("is-expanded", shouldExpand);
         }
 
+        syncSequenceHeight(target, activeStage);
+
       });
     }
 
-    sync();
+    slides.forEach(function (slideNode) {
+      var sequence = slideNode.querySelector(".mlops-sequence");
+      if (sequence) {
+        sequence.classList.add("mlops-sequence-auto-height");
+      }
+
+      var imgs = Array.prototype.slice.call(slideNode.querySelectorAll(".mlops-stage img"));
+      imgs.forEach(function (img) {
+        if (img.getAttribute("data-mlops-height-bound") === "1") {
+          return;
+        }
+
+        img.setAttribute("data-mlops-height-bound", "1");
+        img.addEventListener("load", function () {
+          sync(slideNode);
+        });
+      });
+    });
+
+    if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === "function") {
+      document.fonts.ready.then(function () {
+        if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+          sync(Reveal.getCurrentSlide());
+          return;
+        }
+
+        sync();
+      });
+    }
+
+    var initialMlopsSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialMlopsSlide) {
+      sync(initialMlopsSlide);
+    }
     return { sync: sync };
   }
 
@@ -644,7 +733,10 @@
       });
     }, 1200);
 
-    sync();
+    var initialGovernSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialGovernSlide) {
+      sync(initialGovernSlide);
+    }
     return { sync: sync };
   }
 
@@ -655,8 +747,20 @@
       return null;
     }
 
+    function syncSequenceHeight(target, activeStage) {
+      var sequence = target ? target.querySelector(".story-sequence") : null;
+      if (!sequence) {
+        return;
+      }
+
+      sequence.style.removeProperty("height");
+      if (!activeStage) {
+        return;
+      }
+    }
+
     function sync(slide) {
-      var targetSlides = slides;
+      var targetSlides = slide ? slides : [];
 
       if (slide) {
         if (slide.classList && slide.classList.contains("story-sequence-slide")) {
@@ -667,11 +771,35 @@
             targetSlides = nested;
           }
         }
+      } else if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+        var currentSlide = Reveal.getCurrentSlide();
+        if (currentSlide) {
+          var currentStory = currentSlide.classList && currentSlide.classList.contains("story-sequence-slide")
+            ? currentSlide
+            : currentSlide.querySelector && currentSlide.querySelector(".story-sequence-slide");
+          if (currentStory) {
+            targetSlides = [currentStory];
+          }
+        }
+      }
+
+      if (!targetSlides.length) {
+        return;
+      }
+
+      targetSlides = targetSlides.filter(function (target) {
+        var owner = target && target.closest ? target.closest("section") : null;
+        return !owner || owner.classList.contains("present");
+      });
+
+      if (!targetSlides.length) {
+        return;
       }
 
       targetSlides.forEach(function (target) {
         var activeStep = -1;
         var triggers = target.querySelectorAll(".story-step-trigger");
+        var activeStage = null;
 
         triggers.forEach(function (trigger) {
           if (!trigger.classList.contains("visible")) {
@@ -691,13 +819,52 @@
         var stages = target.querySelectorAll("[data-story-focus]");
         stages.forEach(function (stage) {
           var stageIndex = Number(stage.getAttribute("data-story-focus"));
-          stage.classList.toggle("is-active", Number.isFinite(stageIndex) && stageIndex === activeStep);
+          var isActive = Number.isFinite(stageIndex) && stageIndex === activeStep;
+          stage.classList.toggle("is-active", isActive);
+          if (isActive) {
+            activeStage = stage;
+          }
         });
+
+        syncSequenceHeight(target, activeStage);
 
       });
     }
 
-    sync();
+    slides.forEach(function (slideNode) {
+      var sequence = slideNode.querySelector(".story-sequence");
+      if (sequence) {
+        sequence.classList.add("story-sequence-auto-height");
+      }
+
+      var imgs = Array.prototype.slice.call(slideNode.querySelectorAll(".story-stage img"));
+      imgs.forEach(function (img) {
+        if (img.getAttribute("data-story-height-bound") === "1") {
+          return;
+        }
+
+        img.setAttribute("data-story-height-bound", "1");
+        img.addEventListener("load", function () {
+          sync(slideNode);
+        });
+      });
+    });
+
+    if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === "function") {
+      document.fonts.ready.then(function () {
+        if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+          sync(Reveal.getCurrentSlide());
+          return;
+        }
+
+        sync();
+      });
+    }
+
+    var initialStorySlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialStorySlide) {
+      sync(initialStorySlide);
+    }
     return { sync: sync };
   }
 
@@ -709,7 +876,7 @@
     }
 
     function sync(slide) {
-      var targetSlides = slides;
+      var targetSlides = slide ? slides : [];
 
       if (slide) {
         if (slide.classList && slide.classList.contains("governance-sequence-slide")) {
@@ -720,6 +887,29 @@
             targetSlides = nested;
           }
         }
+      } else if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+        var currentSlide = Reveal.getCurrentSlide();
+        if (currentSlide) {
+          var currentGovern = currentSlide.classList && currentSlide.classList.contains("governance-sequence-slide")
+            ? currentSlide
+            : currentSlide.querySelector && currentSlide.querySelector(".governance-sequence-slide");
+          if (currentGovern) {
+            targetSlides = [currentGovern];
+          }
+        }
+      }
+
+      if (!targetSlides.length) {
+        return;
+      }
+
+      targetSlides = targetSlides.filter(function (target) {
+        var owner = target && target.closest ? target.closest("section") : null;
+        return !owner || owner.classList.contains("present");
+      });
+
+      if (!targetSlides.length) {
+        return;
       }
 
       targetSlides.forEach(function (target) {
@@ -765,6 +955,144 @@
     }
 
     sync();
+    return { sync: sync };
+  }
+
+  function initSlideAutoFit() {
+    var sections = Array.prototype.slice.call(document.querySelectorAll(".reveal .slides > section"));
+
+    if (!sections.length) {
+      return null;
+    }
+
+    function getDirectPad(section) {
+      if (!section || !section.children || !section.children.length) {
+        return null;
+      }
+
+      for (var i = 0; i < section.children.length; i += 1) {
+        var child = section.children[i];
+        if (child && child.classList && child.classList.contains("slide-pad")) {
+          return child;
+        }
+      }
+
+      return null;
+    }
+
+    function getTargetSections(slide) {
+      if (!slide) {
+        if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+          var current = Reveal.getCurrentSlide();
+          if (current) {
+            return [current];
+          }
+        }
+
+        return [];
+      }
+
+      if (slide.classList && slide.classList.contains("present")) {
+        return [slide];
+      }
+
+      var owner = slide.closest ? slide.closest("section") : null;
+      if (owner) {
+        return [owner];
+      }
+
+      return sections;
+    }
+
+    function getInternalOverflow(pad) {
+      if (!pad) {
+        return 0;
+      }
+
+      var maxOverflow = 0;
+      var activeSelectors = [
+        ".story-stage.is-active",
+        ".mlops-stage.is-active",
+        ".govern-detail-stage.is-active"
+      ];
+
+      activeSelectors.forEach(function (selector) {
+        var nodes = Array.prototype.slice.call(pad.querySelectorAll(selector));
+        nodes.forEach(function (node) {
+          if (!node || !node.clientHeight) {
+            return;
+          }
+
+          var hidden = Math.ceil(node.scrollHeight - node.clientHeight);
+          if (hidden <= 6) {
+            return;
+          }
+
+          if (hidden > maxOverflow) {
+            maxOverflow = hidden;
+          }
+        });
+      });
+
+      return Math.max(0, maxOverflow);
+    }
+
+    function measureOverflow(section, pad) {
+      if (!section || !pad) {
+        return 0;
+      }
+
+      var sectionRect = section.getBoundingClientRect();
+      var padRect = pad.getBoundingClientRect();
+      var overflowBottom = Math.ceil(padRect.bottom - sectionRect.bottom);
+      var overflowTop = Math.ceil(sectionRect.top - padRect.top);
+      var internal = getInternalOverflow(pad);
+      var padOverflow = Math.ceil(Math.max(0, pad.scrollHeight - pad.clientHeight));
+
+      return Math.max(0, overflowBottom, overflowTop, internal, padOverflow);
+    }
+
+    function resetFit(pad) {
+      if (!pad) {
+        return;
+      }
+
+      pad.classList.remove("fit-tight", "fit-compact");
+    }
+
+    function fitSection(section) {
+      var pad = getDirectPad(section);
+      if (!pad) {
+        return;
+      }
+
+      resetFit(pad);
+
+      var overflow = measureOverflow(section, pad);
+      if (overflow <= 6) {
+        return;
+      }
+
+      pad.classList.add("fit-tight");
+      overflow = measureOverflow(section, pad);
+      if (overflow <= 6) {
+        return;
+      }
+
+      pad.classList.add("fit-compact");
+    }
+
+    function sync(slide) {
+      var targetSections = getTargetSections(slide);
+      targetSections.forEach(function (section) {
+        fitSection(section);
+      });
+    }
+
+    var initialFitSlide = typeof Reveal !== "undefined" && Reveal.getCurrentSlide ? Reveal.getCurrentSlide() : null;
+    if (initialFitSlide) {
+      sync(initialFitSlide);
+    }
     return { sync: sync };
   }
 
@@ -1558,6 +1886,7 @@
   var mlopsFlowPulse = initMlopsFlowPulse();
   var storySequences = initStorySequences();
   var governanceSequence = initGovernanceSequence();
+  var slideAutoFit = null;
   var slideCounters = initSlideCounters();
   var indexNeon = initIndexNeonReveal();
   var globalMeteors = initGlobalMeteors();
@@ -1566,6 +1895,62 @@
   var rail = initIndexRail();
   initUtcClock();
   var terminalPanel = initTerminalPanel();
+  var storyResizeTimer = null;
+
+  if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === "function") {
+    document.fonts.ready.then(function () {
+      var currentSlide = null;
+      if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+        currentSlide = Reveal.getCurrentSlide();
+      }
+
+      if (storySequences) {
+        storySequences.sync(currentSlide || null);
+      }
+
+      if (mlopsSequence) {
+        mlopsSequence.sync(currentSlide || null);
+      }
+
+      if (governanceSequence) {
+        governanceSequence.sync(currentSlide || null);
+      }
+
+      if (slideAutoFit) {
+        slideAutoFit.sync(currentSlide || null);
+      }
+    });
+  }
+
+  window.addEventListener("resize", function () {
+    if (!storySequences && !mlopsSequence && !governanceSequence && !slideAutoFit) {
+      return;
+    }
+
+    window.clearTimeout(storyResizeTimer);
+    storyResizeTimer = window.setTimeout(function () {
+      var currentSlide = null;
+      if (typeof Reveal !== "undefined" && Reveal.getCurrentSlide) {
+        currentSlide = Reveal.getCurrentSlide();
+      }
+
+      if (storySequences) {
+        storySequences.sync(currentSlide || null);
+      }
+
+      if (mlopsSequence) {
+        mlopsSequence.sync(currentSlide || null);
+      }
+
+      if (governanceSequence) {
+        governanceSequence.sync(currentSlide || null);
+      }
+
+      if (slideAutoFit) {
+        slideAutoFit.sync(currentSlide || null);
+      }
+    }, 120);
+  });
 
   if (typeof Reveal !== "undefined") {
     Reveal.on("ready", function (event) {
@@ -1619,6 +2004,10 @@
 
       if (governanceSequence) {
         governanceSequence.sync(event.currentSlide);
+      }
+
+      if (slideAutoFit) {
+        slideAutoFit.sync(event.currentSlide);
       }
 
       if (slideCounters) {
@@ -1683,6 +2072,10 @@
         governanceSequence.sync(event.currentSlide);
       }
 
+      if (slideAutoFit) {
+        slideAutoFit.sync(event.currentSlide);
+      }
+
       if (slideCounters) {
         slideCounters.sync();
       }
@@ -1725,6 +2118,10 @@
         governanceSequence.sync(event.fragment ? event.fragment.closest("section") : null);
       }
 
+      if (slideAutoFit) {
+        slideAutoFit.sync(event.fragment ? event.fragment.closest("section") : null);
+      }
+
       if (indexNeon && event.fragment && event.fragment.matches(".index-column .clean-list li.fragment")) {
         indexNeon.onShown(event.fragment);
       }
@@ -1761,6 +2158,10 @@
 
       if (governanceSequence) {
         governanceSequence.sync(event.fragment ? event.fragment.closest("section") : null);
+      }
+
+      if (slideAutoFit) {
+        slideAutoFit.sync(event.fragment ? event.fragment.closest("section") : null);
       }
 
       if (indexNeon && event.fragment && event.fragment.matches(".index-column .clean-list li.fragment")) {
