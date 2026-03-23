@@ -2020,7 +2020,7 @@
   var mlopsFlowPulse = initMlopsFlowPulse();
   var storySequences = initStorySequences();
   var governanceSequence = initGovernanceSequence();
-  var slideAutoFit = null;
+  var slideAutoFit = initSlideAutoFit();
   var slideCounters = initSlideCounters();
   var indexNeon = initIndexNeonReveal();
   var globalMeteors = initGlobalMeteors();
