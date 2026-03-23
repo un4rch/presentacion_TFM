@@ -301,6 +301,7 @@
 .terminal-chrome {
   left: calc(var(--content-safe-inline-pad) - clamp(0.5rem, 0.35rem + 0.45vw, 0.8rem));
   bottom: clamp(0.35rem, 0.25rem + 0.25vw, 0.6rem);
+  margin-left: 0.8em;
   z-index: 9;
   height: auto;
 }
