@@ -19,8 +19,8 @@
   --ticker-height: clamp(1.85rem, 1.65rem + 0.45vw, 2.15rem);
   --rail-width: clamp(3rem, 2.6rem + 0.9vw, 3.75rem);
   --content-gutter: clamp(0.9rem, 0.45rem + 0.95vw, 1.9rem);
-  --content-inset-start: calc(var(--rail-width) + var(--content-gutter));
-  --content-inset-end: var(--content-gutter);
+  --content-safe-inline-pad: max(var(--content-gutter), calc(var(--rail-width) + 0.35rem));
+  --content-top-pad: clamp(0.7rem, 0.5rem + 0.65vw, 1.45rem);
   --slide-shell-max-width: 98rem;
   --slide-shell-max-width-wide: 104rem;
 }
@@ -38,14 +38,16 @@
 }
 
 .reveal .slides {
-  margin-top: calc(var(--ticker-height) + clamp(1.35rem, 1rem + 0.7vw, 2.2rem));
-  padding-left: 0;
+  position: absolute;
+  margin: 0;
+  padding: 0;
 }
 
 .reveal .slides section {
   box-sizing: border-box;
-  --section-pad-left: var(--content-inset-start);
-  --section-pad-right: var(--content-inset-end);
+  --section-pad-left: var(--content-safe-inline-pad);
+  --section-pad-right: var(--content-safe-inline-pad);
+  padding-top: var(--content-top-pad);
   padding-left: var(--section-pad-left);
   padding-right: var(--section-pad-right);
 }
@@ -297,7 +299,7 @@
 }
 
 .terminal-chrome {
-  left: calc(var(--content-inset-start) - clamp(0.5rem, 0.35rem + 0.45vw, 0.8rem));
+  left: calc(var(--content-safe-inline-pad) - clamp(0.5rem, 0.35rem + 0.45vw, 0.8rem));
   bottom: clamp(0.35rem, 0.25rem + 0.25vw, 0.6rem);
   z-index: 9;
   height: auto;
@@ -1662,19 +1664,16 @@
     --ticker-height: 0rem;
     --rail-width: clamp(2.75rem, 2.45rem + 0.9vw, 3.15rem);
     --content-gutter: clamp(0.7rem, 0.45rem + 0.8vw, 1.05rem);
+    --content-top-pad: clamp(0.45rem, 0.34rem + 0.45vw, 0.95rem);
     --slide-shell-max-width: 100%;
     --slide-shell-max-width-wide: 100%;
   }
 
   .reveal .slides section {
-    --section-pad-left: var(--content-inset-start);
-    --section-pad-right: var(--content-inset-end);
+    --section-pad-left: var(--content-safe-inline-pad);
+    --section-pad-right: var(--content-safe-inline-pad);
     padding-left: var(--section-pad-left);
     padding-right: var(--section-pad-right);
-  }
-
-  .reveal .slides {
-    margin-top: clamp(0.9rem, 0.65rem + 0.8vw, 1.5rem);
   }
 
   .slide-pad {
@@ -1838,15 +1837,12 @@
   :root {
     --rail-width: clamp(2.45rem, 2.2rem + 1vw, 2.8rem);
     --content-gutter: clamp(0.55rem, 0.35rem + 0.9vw, 0.85rem);
-  }
-
-  .reveal .slides {
-    margin-top: clamp(0.6rem, 0.4rem + 0.7vw, 1rem);
+    --content-top-pad: clamp(0.3rem, 0.22rem + 0.35vw, 0.7rem);
   }
 
   .reveal .slides section {
-    --section-pad-left: var(--content-inset-start);
-    --section-pad-right: var(--content-inset-end);
+    --section-pad-left: var(--content-safe-inline-pad);
+    --section-pad-right: var(--content-safe-inline-pad);
     padding-left: var(--section-pad-left);
     padding-right: var(--section-pad-right);
   }
