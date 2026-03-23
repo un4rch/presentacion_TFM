@@ -20,7 +20,7 @@
   --rail-width: clamp(3rem, 2.6rem + 0.9vw, 3.75rem);
   --content-gutter: clamp(0.9rem, 0.45rem + 0.95vw, 1.9rem);
   --content-safe-inline-pad: max(var(--content-gutter), calc(var(--rail-width) + 0.35rem));
-  --content-top-pad: clamp(0.55rem, 1.15vh, 1.15rem);
+  --content-top-pad: clamp(0.3rem, 0.8vh, 0.8rem);
   --slide-shell-max-width: 98rem;
   --slide-shell-max-width-wide: 104rem;
 }
@@ -47,9 +47,6 @@
   box-sizing: border-box;
   --section-pad-left: var(--content-safe-inline-pad);
   --section-pad-right: var(--content-safe-inline-pad);
-  min-block-size: 100%;
-  display: grid;
-  place-items: center;
   padding-block: var(--content-top-pad);
   padding-left: var(--section-pad-left);
   padding-right: var(--section-pad-right);
@@ -1667,7 +1664,7 @@
     --ticker-height: 0rem;
     --rail-width: clamp(2.75rem, 2.45rem + 0.9vw, 3.15rem);
     --content-gutter: clamp(0.7rem, 0.45rem + 0.8vw, 1.05rem);
-    --content-top-pad: clamp(0.45rem, 0.9vh, 0.95rem);
+    --content-top-pad: clamp(0.25rem, 0.65vh, 0.7rem);
     --slide-shell-max-width: 100%;
     --slide-shell-max-width-wide: 100%;
   }
@@ -1840,7 +1837,7 @@
   :root {
     --rail-width: clamp(2.45rem, 2.2rem + 1vw, 2.8rem);
     --content-gutter: clamp(0.55rem, 0.35rem + 0.9vw, 0.85rem);
-    --content-top-pad: clamp(0.35rem, 0.75vh, 0.75rem);
+    --content-top-pad: clamp(0.15rem, 0.45vh, 0.45rem);
   }
 
   .reveal .slides section {

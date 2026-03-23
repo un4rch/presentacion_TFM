@@ -9,7 +9,7 @@
     progress: true,
     slideNumber: "c/t",
     showSlideNumber: "all",
-    center: false,
+    center: true,
     transition: "convex",
     backgroundTransition: "fade",
     viewDistance: 6,
