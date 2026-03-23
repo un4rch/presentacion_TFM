@@ -709,6 +709,18 @@
   object-fit: contain;
 }
 
+.governance-sequence-slide .govern-detail-stage[data-govern-panel="4"] .image-box {
+  width: min(100%, 40rem);
+  max-width: 100%;
+  aspect-ratio: 301 / 117;
+  min-height: clamp(10rem, 24vh, 13rem);
+  margin-inline: auto;
+}
+
+.governance-sequence-slide .govern-detail-stage[data-govern-panel="4"] .image-box img {
+  object-position: center;
+}
+
 .context-ods-wrap {
   margin-top: 16px;
   padding: 0;
@@ -1068,6 +1080,27 @@
   object-fit: contain;
 }
 
+@media (min-width: 1121px) {
+  .chronos-stage[data-story-focus="2"] .chronos-stage-layout {
+    grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
+    align-items: center;
+  }
+
+  .chronos-stage[data-story-focus="2"] .chronos-stage-visual {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 4137 / 918;
+    min-height: clamp(14rem, 30vh, 18rem);
+    max-block-size: none;
+    margin-inline: auto;
+  }
+
+  .chronos-stage[data-story-focus="2"] .chronos-stage-visual img {
+    transform: scale(1.08);
+    transform-origin: center;
+  }
+}
+
 .template-sequence-slide .template-scope-stage {
   padding: 0 !important;
   border: 0 !important;
@@ -1174,35 +1207,78 @@
 }
 
 .asset-sequence-slide .image-wide {
-  block-size: auto;
-  aspect-ratio: 16 / 9;
-  min-block-size: clamp(12rem, 28vh, 16rem);
-  max-block-size: clamp(15rem, 36vh, 21rem);
+  width: 100%;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-inline: auto;
 }
 
 .asset-sequence-slide .image-wide img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: center;
 }
 
 .template-sequence-slide .template-structure-image {
-  block-size: auto;
-  aspect-ratio: 16 / 9;
-  min-block-size: clamp(13.5rem, 30vh, 20rem);
-  max-block-size: clamp(18rem, 44vh, 27rem);
+  width: min(100%, 64rem);
+  max-width: 100%;
+  aspect-ratio: 1084 / 585;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-inline: auto;
 }
 
 .template-sequence-slide .template-structure-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: center;
+}
+
+@media (min-width: 1121px) {
+  .asset-sequence-slide .story-stage[data-story-focus="1"] .image-wide {
+    aspect-ratio: 4142 / 798;
+    min-height: clamp(15rem, 34vh, 20rem);
+  }
+
+  .asset-sequence-slide .story-stage[data-story-focus="2"] .image-wide {
+    aspect-ratio: 3808 / 650;
+    min-height: clamp(14.5rem, 32vh, 19rem);
+  }
+
+  .asset-sequence-slide .story-stage[data-story-focus="3"] .image-wide {
+    width: min(100%, 64rem);
+    aspect-ratio: 1884 / 893;
+    min-height: clamp(18rem, 42vh, 25rem);
+  }
+
+  .asset-sequence-slide .story-stage[data-story-focus="1"] .image-wide img {
+    transform: scale(1.14);
+    transform-origin: center;
+  }
+
+  .asset-sequence-slide .story-stage[data-story-focus="2"] .image-wide img {
+    transform: scale(1.16);
+    transform-origin: center;
+  }
+
+  .asset-sequence-slide .story-stage[data-story-focus="3"] .image-wide img {
+    transform: scale(1.1);
+    transform-origin: center top;
+  }
+
+  .template-sequence-slide .story-stage[data-story-focus="2"] .template-structure-image {
+    width: min(100%, 66rem);
+  }
+
+  .template-sequence-slide .story-stage[data-story-focus="2"] .template-structure-image img {
+    transform: scale(1.08);
+    transform-origin: center;
+  }
 }
 
 .results-sequence-slide .results-stage {
@@ -1307,13 +1383,27 @@
 .memoria-slide .memoria-images-grid {
   margin-top: 6px;
   gap: 14px;
+  align-items: start;
 }
 
 .memoria-slide .memoria-images-grid .image-box {
+  width: 100%;
+  max-width: 100%;
   block-size: auto;
-  aspect-ratio: 16 / 10;
-  min-block-size: clamp(10rem, 22vh, 13rem);
-  max-block-size: clamp(13rem, 30vh, 18rem);
+  min-block-size: 0;
+  max-block-size: none;
+  max-height: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memoria-slide .memoria-images-grid .image-box:first-child {
+  aspect-ratio: 5434 / 1858;
+}
+
+.memoria-slide .memoria-images-grid .image-box:last-child {
+  aspect-ratio: 1538 / 392;
 }
 
 .memoria-slide .memoria-images-grid .image-box img {
