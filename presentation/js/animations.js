@@ -211,6 +211,259 @@
     }, 2200);
   }
 
+  var DYNAMIC_RECENTER_DELAYS_MS = [120, 280, 520, 820, 1120];
+
+  function clearSmoothRecenterLoop(section) {
+    if (!section || !section._smoothRecenterRafId) {
+      return;
+    }
+
+    window.cancelAnimationFrame(section._smoothRecenterRafId);
+    section._smoothRecenterRafId = null;
+  }
+
+  function startSmoothRecenterLoop(node, durationMs) {
+    var section = getOwnerSection(node);
+    if (!section || !section.classList || !section.classList.contains("present")) {
+      return;
+    }
+
+    clearSmoothRecenterLoop(section);
+
+    var startAt = performance.now();
+    var totalMs = Math.max(120, Number(durationMs) || 0);
+
+    function tick(now) {
+      if (!section.classList || !section.classList.contains("present")) {
+        section._smoothRecenterRafId = null;
+        return;
+      }
+
+      recenterSection(section);
+
+      if (now - startAt < totalMs) {
+        section._smoothRecenterRafId = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      recenterSection(section);
+      section._smoothRecenterRafId = null;
+    }
+
+    section._smoothRecenterRafId = window.requestAnimationFrame(tick);
+  }
+
+  function clearDynamicHeightHandles(container) {
+    if (!container) {
+      return;
+    }
+
+    if (container._dynamicHeightRafId) {
+      window.cancelAnimationFrame(container._dynamicHeightRafId);
+      container._dynamicHeightRafId = null;
+    }
+
+    container._dynamicHeightTarget = null;
+  }
+
+  function lockCurrentHeight(container) {
+    if (!container) {
+      return;
+    }
+
+    var current = Math.max(0, container.offsetHeight || container.clientHeight || 0);
+    if (!current) {
+      return;
+    }
+
+    container.style.height = current.toFixed(3) + "px";
+    container._dynamicHeightTarget = current;
+  }
+
+  function scheduleSmoothHeight(container, readTargetHeight) {
+    if (!container || typeof readTargetHeight !== "function") {
+      return;
+    }
+
+    clearDynamicHeightHandles(container);
+
+    var ownerSection = getOwnerSection(container);
+
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      container.style.height = "auto";
+      scheduleSectionRecenter(container);
+      return;
+    }
+
+    var startAt = performance.now();
+    var minRuntimeMs = 180;
+    var maxRuntimeMs = 1700;
+    var settleWindowMs = 140;
+    var lerpFactor = 0.18;
+    var target = Math.max(0, Number(readTargetHeight()) || 0);
+    var current = Math.max(0, container.offsetHeight || container.clientHeight || 0);
+    var lastTargetChangeAt = startAt;
+
+    if (!current && target) {
+      current = target;
+    }
+
+    container.style.height = current.toFixed(3) + "px";
+    container._dynamicHeightTarget = target;
+
+    startSmoothRecenterLoop(ownerSection, maxRuntimeMs + 200);
+
+    function finish() {
+      container.style.height = "auto";
+      recenterSection(ownerSection);
+      clearDynamicHeightHandles(container);
+      clearSmoothRecenterLoop(ownerSection);
+      scheduleSectionRecenter(container);
+    }
+
+    function tick(now) {
+      if (!ownerSection || !ownerSection.classList || !ownerSection.classList.contains("present")) {
+        finish();
+        return;
+      }
+
+      var nextTarget = Math.max(0, Number(readTargetHeight()) || 0);
+      if (Math.abs(nextTarget - target) > 0.5) {
+        target = nextTarget;
+        lastTargetChangeAt = now;
+      }
+
+      var delta = target - current;
+      current += delta * lerpFactor;
+      if (Math.abs(delta) < 0.35) {
+        current = target;
+      }
+
+      container.style.height = current.toFixed(3) + "px";
+      container._dynamicHeightTarget = target;
+      recenterSection(ownerSection);
+
+      var elapsed = now - startAt;
+      var stableFor = now - lastTargetChangeAt;
+      var settled = Math.abs(target - current) < 0.4 && stableFor >= settleWindowMs && elapsed >= minRuntimeMs;
+
+      if (settled || elapsed >= maxRuntimeMs) {
+        finish();
+        return;
+      }
+
+      container._dynamicHeightRafId = window.requestAnimationFrame(tick);
+    }
+
+    container._dynamicHeightRafId = window.requestAnimationFrame(tick);
+  }
+
+  function getRevealApi() {
+    if (typeof Reveal === "undefined" || !Reveal || typeof Reveal.getComputedSlideSize !== "function") {
+      return null;
+    }
+
+    return Reveal;
+  }
+
+  function getOwnerSection(node) {
+    if (!node) {
+      var revealApi = getRevealApi();
+      if (revealApi && typeof revealApi.getCurrentSlide === "function") {
+        return revealApi.getCurrentSlide();
+      }
+
+      return null;
+    }
+
+    if (node.tagName === "SECTION") {
+      return node;
+    }
+
+    if (typeof node.closest === "function") {
+      return node.closest("section");
+    }
+
+    return null;
+  }
+
+  function clearDynamicRecenterHandles(section) {
+    if (!section || !section._dynamicCenterHandles || !section._dynamicCenterHandles.length) {
+      return;
+    }
+
+    section._dynamicCenterHandles.forEach(function (handle) {
+      if (!handle) {
+        return;
+      }
+
+      if (handle.type === "raf") {
+        window.cancelAnimationFrame(handle.id);
+        return;
+      }
+
+      window.clearTimeout(handle.id);
+    });
+
+    section._dynamicCenterHandles = [];
+  }
+
+  function recenterSection(section) {
+    var revealApi = getRevealApi();
+    if (!revealApi || !section || !section.classList || !section.classList.contains("present")) {
+      return;
+    }
+
+    if (section.style.display === "none") {
+      return;
+    }
+
+    var config = typeof revealApi.getConfig === "function" ? revealApi.getConfig() : null;
+    var shouldCenter = !config || config.center || section.classList.contains("center");
+
+    if (!shouldCenter) {
+      section.style.top = "";
+      return;
+    }
+
+    if (section.classList.contains("stack")) {
+      section.style.top = "0px";
+      return;
+    }
+
+    var size = revealApi.getComputedSlideSize();
+    if (!size || !Number.isFinite(size.height)) {
+      return;
+    }
+
+    section.style.top = Math.max((size.height - section.scrollHeight) / 2, 0) + "px";
+  }
+
+  function scheduleSectionRecenter(node) {
+    var section = getOwnerSection(node);
+    if (!section || !section.classList || !section.classList.contains("present")) {
+      return;
+    }
+
+    clearDynamicRecenterHandles(section);
+    recenterSection(section);
+
+    var handles = [];
+    section._dynamicCenterHandles = handles;
+
+    var rafId = window.requestAnimationFrame(function () {
+      recenterSection(section);
+    });
+    handles.push({ type: "raf", id: rafId });
+
+    DYNAMIC_RECENTER_DELAYS_MS.forEach(function (delayMs) {
+      var timeoutId = window.setTimeout(function () {
+        recenterSection(section);
+      }, delayMs);
+      handles.push({ type: "timeout", id: timeoutId });
+    });
+  }
+
   function initHoverZoomPreview() {
     if (!window.matchMedia || !window.matchMedia("(hover: hover)").matches) {
       return null;
@@ -609,7 +862,7 @@
       return null;
     }
 
-    function syncSequenceHeight(target, activeStage) {
+    function syncSequenceHeight(target, animateHeight) {
       var sequence = target ? target.querySelector(".mlops-sequence") : null;
       if (!sequence) {
         return;
@@ -617,13 +870,24 @@
 
       sequence.classList.add("mlops-sequence-auto-height");
 
-      sequence.style.removeProperty("height");
-      if (!activeStage) {
+      if (!animateHeight) {
+        clearDynamicHeightHandles(sequence);
+        sequence.style.height = "auto";
         return;
       }
+
+      scheduleSmoothHeight(sequence, function () {
+        var activeStage = target && target.querySelector ? target.querySelector(".mlops-stage.is-active") : null;
+        if (activeStage) {
+          return Math.max(activeStage.scrollHeight, activeStage.offsetHeight || 0);
+        }
+
+        return Math.max(sequence.scrollHeight, sequence.offsetHeight || 0);
+      });
     }
 
-    function sync(slide) {
+    function sync(slide, animateHeight) {
+      var shouldAnimateHeight = Boolean(animateHeight);
       var targetSlides = slides;
 
       if (slide) {
@@ -661,9 +925,16 @@
       }
 
       targetSlides.forEach(function (target) {
+        var sequence = target.querySelector(".mlops-sequence");
+        if (sequence) {
+          sequence.classList.add("mlops-sequence-auto-height");
+          if (shouldAnimateHeight) {
+            lockCurrentHeight(sequence);
+          }
+        }
+
         var activeStep = -1;
         var triggers = target.querySelectorAll(".mlops-step-trigger");
-        var activeStage = null;
 
         triggers.forEach(function (trigger) {
           if (!trigger.classList.contains("visible")) {
@@ -685,9 +956,6 @@
           var stageIndex = Number(stage.getAttribute("data-mlops-focus"));
           var isActive = Number.isFinite(stageIndex) && stageIndex === activeStep;
           stage.classList.toggle("is-active", isActive);
-          if (isActive) {
-            activeStage = stage;
-          }
         });
 
         var practiceExpanded = false;
@@ -705,7 +973,8 @@
           practiceStage.classList.toggle("is-expanded", shouldExpand);
         }
 
-        syncSequenceHeight(target, activeStage);
+        syncSequenceHeight(target, shouldAnimateHeight);
+        scheduleSectionRecenter(target);
 
       });
     }
@@ -880,19 +1149,32 @@
       return null;
     }
 
-    function syncSequenceHeight(target, activeStage) {
+    function syncSequenceHeight(target, animateHeight) {
       var sequence = target ? target.querySelector(".story-sequence") : null;
       if (!sequence) {
         return;
       }
 
-      sequence.style.removeProperty("height");
-      if (!activeStage) {
+      sequence.classList.add("story-sequence-auto-height");
+
+      if (!animateHeight) {
+        clearDynamicHeightHandles(sequence);
+        sequence.style.height = "auto";
         return;
       }
+
+      scheduleSmoothHeight(sequence, function () {
+        var activeStage = target && target.querySelector ? target.querySelector(".story-stage.is-active") : null;
+        if (activeStage) {
+          return Math.max(activeStage.scrollHeight, activeStage.offsetHeight || 0);
+        }
+
+        return Math.max(sequence.scrollHeight, sequence.offsetHeight || 0);
+      });
     }
 
-    function sync(slide) {
+    function sync(slide, animateHeight) {
+      var shouldAnimateHeight = Boolean(animateHeight);
       var targetSlides = slide ? slides : [];
 
       if (slide) {
@@ -930,9 +1212,16 @@
       }
 
       targetSlides.forEach(function (target) {
+        var sequence = target.querySelector(".story-sequence");
+        if (sequence) {
+          sequence.classList.add("story-sequence-auto-height");
+          if (shouldAnimateHeight) {
+            lockCurrentHeight(sequence);
+          }
+        }
+
         var activeStep = -1;
         var triggers = target.querySelectorAll(".story-step-trigger");
-        var activeStage = null;
 
         triggers.forEach(function (trigger) {
           if (!trigger.classList.contains("visible")) {
@@ -954,12 +1243,10 @@
           var stageIndex = Number(stage.getAttribute("data-story-focus"));
           var isActive = Number.isFinite(stageIndex) && stageIndex === activeStep;
           stage.classList.toggle("is-active", isActive);
-          if (isActive) {
-            activeStage = stage;
-          }
         });
 
-        syncSequenceHeight(target, activeStage);
+        syncSequenceHeight(target, shouldAnimateHeight);
+        scheduleSectionRecenter(target);
 
       });
     }
@@ -1084,6 +1371,8 @@
         if (rightTerminal) {
           rightTerminal.classList.add("is-active");
         }
+
+        scheduleSectionRecenter(target);
       });
     }
 
@@ -2053,6 +2342,8 @@
       if (slideAutoFit) {
         slideAutoFit.sync(currentSlide || null);
       }
+
+      scheduleSectionRecenter(currentSlide || null);
     });
   }
 
@@ -2083,6 +2374,8 @@
       if (slideAutoFit) {
         slideAutoFit.sync(currentSlide || null);
       }
+
+      scheduleSectionRecenter(currentSlide || null);
     }, 120);
   });
 
@@ -2155,6 +2448,8 @@
       if (slideImageReveal) {
         slideImageReveal.onSlideEnter(event.currentSlide);
       }
+
+      scheduleSectionRecenter(event.currentSlide);
     });
 
     Reveal.on("slidechanged", function (event) {
@@ -2225,6 +2520,8 @@
       if (slideImageReveal) {
         slideImageReveal.onSlideEnter(event.currentSlide);
       }
+
+      scheduleSectionRecenter(event.currentSlide);
     });
 
     Reveal.on("fragmentshown", function (event) {
@@ -2245,7 +2542,7 @@
       }
 
       if (mlopsSequence) {
-        mlopsSequence.sync(event.fragment ? event.fragment.closest("section") : null);
+        mlopsSequence.sync(event.fragment ? event.fragment.closest("section") : null, true);
       }
 
       if (mlopsFlowPulse) {
@@ -2253,7 +2550,7 @@
       }
 
       if (storySequences) {
-        storySequences.sync(event.fragment ? event.fragment.closest("section") : null);
+        storySequences.sync(event.fragment ? event.fragment.closest("section") : null, true);
       }
 
       if (governanceSequence) {
@@ -2271,6 +2568,8 @@
       if (slideImageReveal) {
         slideImageReveal.onFragmentUpdate(event.fragment ? event.fragment.closest("section") : null);
       }
+
+      scheduleSectionRecenter(event.fragment ? event.fragment.closest("section") : null);
     });
 
     Reveal.on("fragmenthidden", function (event) {
@@ -2291,7 +2590,7 @@
       }
 
       if (mlopsSequence) {
-        mlopsSequence.sync(event.fragment ? event.fragment.closest("section") : null);
+        mlopsSequence.sync(event.fragment ? event.fragment.closest("section") : null, true);
       }
 
       if (mlopsFlowPulse) {
@@ -2299,7 +2598,7 @@
       }
 
       if (storySequences) {
-        storySequences.sync(event.fragment ? event.fragment.closest("section") : null);
+        storySequences.sync(event.fragment ? event.fragment.closest("section") : null, true);
       }
 
       if (governanceSequence) {
@@ -2313,6 +2612,8 @@
       if (indexNeon && event.fragment && event.fragment.matches(".index-column .clean-list li.fragment")) {
         indexNeon.onHidden(event.fragment);
       }
+
+      scheduleSectionRecenter(event.fragment ? event.fragment.closest("section") : null);
     });
   }
 })();

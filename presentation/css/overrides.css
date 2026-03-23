@@ -639,7 +639,9 @@
 .story-sequence-slide .story-sequence.story-sequence-auto-height {
   min-height: 0 !important;
   height: auto;
-  transition: height 260ms ease;
+  overflow: hidden;
+  will-change: height;
+  transition: none;
 }
 
 .story-sequence-slide .story-stage {
@@ -661,7 +663,9 @@
 .mlops-sequence-slide .mlops-sequence.mlops-sequence-auto-height {
   min-height: 0 !important;
   height: auto;
-  transition: height 260ms ease;
+  overflow: hidden;
+  will-change: height;
+  transition: none;
 }
 
 .governance-sequence-slide .govern-terminal {
@@ -2152,6 +2156,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .story-sequence-slide .story-sequence.story-sequence-auto-height,
+  .mlops-sequence-slide .mlops-sequence.mlops-sequence-auto-height {
+    transition: none;
+  }
+
   .reveal .slides .slide-pad img.is-slide-reveal {
     animation-duration: 1ms;
   }
